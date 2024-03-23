@@ -40,7 +40,24 @@ class YouthSeeder extends Seeder
         DB::table('youths')->insert($youths);
 
         // mentors
-        $education_levels = ['ثانوي','بكالوريوس','ماجستير','دكتوراه'];
+        $positions = [
+            "Backend مطور",
+            "Frontend مطور",
+            "مهندس البرمجيات",
+            "محلل النظم",
+            "مدير المشروع الفني",
+            "مصمم الجرافيك",
+            "مصمم الواجهة الأمامية",
+            "مصمم UX/UI",
+            "مصمم الويب",
+            "مدير الفن",
+            "مدرب التطوير الشخصي",
+            "مدرب التطوير المهني",
+            "مدرب التقنية",
+            "مدرب اللغات",
+            "مدرب القيادة"
+        ];
+
         $abouts = [
             'مدرب محترف في التسويق الرقمي',
             'مدرب محترف في البرمجة',
@@ -53,13 +70,15 @@ class YouthSeeder extends Seeder
             'مدرب محترف في التواصل الفعال',
             'مدرب محترف في القيادة'
         ];
+
         for ($i = 0; $i < 10; $i++) {
             $mentors[] = [
                 'first_name' => $first_names[$i],
                 'last_name' => $last_names[$i],
                 'email' => $user_name[$i].'@gmail.com',
                 'password' => Hash::make('password'),
-                'education_level' => $education_levels[array_rand($education_levels)],
+                'position' => $positions[array_rand($positions)],
+                'location' => $locations[$i],
                 'about' => $abouts[$i],
                 'phone_number' => $phone_numbers[$i],
                 'created_at' => now(),

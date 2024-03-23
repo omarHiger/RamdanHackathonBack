@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,13 +12,14 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-            Schema::create('mentors', function (Blueprint $table) {
+        Schema::create('mentors', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
             $table->string('password');
-            $table->enum('education_level',['ثانوي','بكالوريوس','ماجستير','دكتوراه']);
+            $table->string('position');
+            $table->string('location');
             $table->text('about');
             $table->string('phone_number');
             $table->timestamps();
