@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\MentorCreateRequest;
 use App\Http\Requests\Auth\YouthCreateRequest;
 use App\Http\Requests\Auth\YouthLoginRequest;
+use App\Models\Category;
+use App\Models\Mentor;
+use App\Services\Mentor\MentorService;
 use App\Services\Youth\YouthService;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -57,15 +61,30 @@ class AuthController extends Controller
         }
     }
 
-    public function register(YouthCreateRequest $request, YouthService $service)
+
+    public function onBoarding(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('auth.onBoarding');
+    }
+
+    public function signUp(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    {
+        $type = $request->input('borderedRadioChoice');
+        $skills = Category::all();
+        return view('auth.register',compact('type','skills'));
+    }
+
+    public function register(MentorCreateRequest $request, MentorService $service)
     {
         try {
             $data = $request->validated();
 
-            $youth = $service->create($data);
+            $mentor = $service->create($data);
 
-            if ($youth)
-                return $this->success($youth, 'register successfully', 201);
+            if ($mentor){
+                $email = $mentor->email;
+                return view('auth.verify',compact('email'));
+            }
             else
                 return $this->error(null, 'Failed add user');
         } catch (\throwable $th) {
