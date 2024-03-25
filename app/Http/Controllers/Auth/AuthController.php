@@ -16,7 +16,11 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
 
-    public function login(Request $request)
+    public function login()
+    {
+        return view('auth.login');
+    }
+    public function store(Request $request)
     {
         // Validate the form data
         $this->validate($request, [
@@ -30,14 +34,14 @@ class AuthController extends Controller
             return redirect()->intended(route('mentor.dashboard'));
         }
         else if (Auth::guard('youth')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            return redirect()->intended(route('youth.dashboard'));
+            return redirect()->intended(route('youth-home'));
         }
         else if (Auth::guard('donor')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             return redirect()->intended(route('donor.dashboard'));
         }
 
         // If unsuccessful, then redirect back to the login with the form data
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors('البريد الالكتروني أو كلمة المرور خاطئة', 'invalid');
     }
 
 

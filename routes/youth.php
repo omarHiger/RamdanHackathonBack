@@ -3,4 +3,4 @@
 use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/youth-home', [CourseController::class, 'youthHome']);
+Route::get('/youth-home', [CourseController::class, 'youthHome'])->name('youth-home');
