@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\Youth;
 use Illuminate\Database\Eloquent\Builder;
@@ -48,9 +49,23 @@ class CourseController extends Controller
         return view('youth.home', compact('my_courses', 'recommended', 'popular_courses'));
     }
 
-    public function index()
+    public function index( Request $req)
     {
-        //
+        $categories = Category::all();
+        $courses = Course::all();
+//        if($req==[]){
+//            $courses = Course::whereIn('level', $req->level)->whereIn('category', $req->categories)->where('title', 'like', '%'.$req->search.'%')->where('description   ', 'like', '%'.$req->search.'%');
+//        }
+//        $user_id = Auth::guard('youths')->id();
+        $user_id = 1;
+        $youth = Youth::find($user_id);
+        $my_courses = $youth->courses;
+        $categories_rec = $youth->categories()->with('courses')->get(); // get the categories of the youth with their courses
+
+        $recommended = $categories_rec->flatMap(function ($category) {
+            return $category->courses;
+        });
+        return view('youth.courses.index', compact('courses', 'categories', 'recommended'));
     }
 
     /**
