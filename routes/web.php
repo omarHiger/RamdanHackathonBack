@@ -35,4 +35,6 @@ Route::middleware('auth')->group(function () {
 Route::post('/youth/login', [AuthController::class, 'login'])->name('auth.login');
 
 
+//verified
+
 require __DIR__.'/auth.php';
