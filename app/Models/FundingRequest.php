@@ -13,7 +13,13 @@ class FundingRequest extends Model
         'admin_id',
         'is_accepted',
         'description',
+        'title',
         'amount',
         'file',
     ];
+
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
 }

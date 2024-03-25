@@ -10,7 +10,13 @@ class Update extends Model
     use HasFactory;
     protected $fillable = [
         'funding_request_id',
+        'title',
         'description',
         'images',
     ];
+
+    public function fundingRequest()
+    {
+        return $this->belongsTo(FundingRequest::class);
+    }
 }

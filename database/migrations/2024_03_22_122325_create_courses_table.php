@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('image');
             $table->enum('level',['مبتدئ','متوسط','متقدم']);
             $table->boolean('should_request');
+            $table->date('start_date');
             $table->timestamps();
         });
 

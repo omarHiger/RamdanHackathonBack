@@ -1,0 +1,38 @@
+.wizard .nav-tabs .nav-link:before{
+    width: 40px;
+    height: 10px;
+}
+.wizard .nav-tabs.disabled .nav-link {
+    pointer-events: none;
+    margin-right: 20px;
+}
+.wizard .nav-tabs:before {
+    content: unset;
+}
+.wizard .nav-tabs .nav-link.done:after {
+    content: unset;
+}
+body input{
+    direction: rtl;
+}
+.select2-container--bootstrap4 .select2-results__option--highlighted, .select2-container--bootstrap4 .select2-results__option--highlighted.select2-results__option[aria-selected=true] {
+    background-color: #007bff;
+    color: #f8f9fa;
+}
+.select2-container--bootstrap4 .select2-results__option--highlighted, .select2-container--bootstrap4 .select2-results__option--highlighted.select2-results__option[aria-selected=true] {
+    cursor: pointer;
+    color: var(--primary);
+    background: var(--primary) !important;
+    border-radius: var(--border-radius-sm);
+    border-width: 5px;
+}
+.form-check.custom-card:hover .form-check-label::before, .form-check.custom-card .form-check-input:checked ~ .form-check-label::before {
+    border-color: var(--primary);
+    border: 2px solid;
+}
+.form-check.custom-card .form-check-input:checked {
+    visibility: hidden;
+}
+.form-check-label {
+    color: var(--primary);
+}
