@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\DonorAuthController;
 use App\Http\Controllers\Auth\MentorAuthController;
-use App\Http\Controllers\Auth\YouthAuthController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,9 +32,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::post('/youth/login', [YouthAuthController::class, 'store'])->name('youth.login');
-Route::post('/mentor/login', [MentorAuthController::class, 'store']);
-Route::post('/donor/login', [DonorAuthController::class, 'store']);
+Route::post('/youth/login', [AuthController::class, 'login'])->name('auth.login');
 
 
 require __DIR__.'/auth.php';

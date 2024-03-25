@@ -20,4 +20,10 @@ class Mentor extends Authenticatable
        'about',
        'phone_number',
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
 }
