@@ -16,4 +16,9 @@ class FundingRequest extends Model
         'amount',
         'file',
     ];
+
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
 }

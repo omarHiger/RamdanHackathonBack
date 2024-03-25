@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Funding_Request;
+use App\Models\FundingRequest;
 use Illuminate\Http\Request;
 
 class FundingRequestController extends Controller
@@ -12,7 +13,12 @@ class FundingRequestController extends Controller
      */
     public function index()
     {
-        //
+        $request = FundingRequest::where('is_accepted', 1)->with(['donations' => function($query) {
+            $query->selectRaw('funding_request_id, sum(amount) as donated_amount')
+                ->groupBy('funding_request_id');
+        }])->get();
+        return $request;
+        return view('donor.funding_request.index', $request);
     }
 
     /**
