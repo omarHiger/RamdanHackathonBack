@@ -8,21 +8,38 @@ use App\Services\Youth\YouthService;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 
-class YouthAuthController extends Controller
+class AuthController extends Controller
 {
 
-    public function store(YouthLoginRequest $request): RedirectResponse
+    public function login(Request $request)
     {
-        $request->authenticate();
+        // Validate the form data
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
 
-        $request->session()->regenerate();
+        // Attempt to log the user in
+        if (Auth::guard('mentor')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+            // If successful, then redirect to their intended location
+            return redirect()->intended(route('mentor.dashboard'));
+        }
+        else if (Auth::guard('youth')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+            return redirect()->intended(route('youth.dashboard'));
+        }
+        else if (Auth::guard('donor')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+            return redirect()->intended(route('donor.dashboard'));
+        }
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // If unsuccessful, then redirect back to the login with the form data
+        return redirect()->back()->withInput($request->only('email', 'remember'));
     }
+
 
     public function logout(Request $request)
     {
