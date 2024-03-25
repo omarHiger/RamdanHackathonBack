@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'youth',
         'passwords' => 'users',
     ],
 
@@ -36,11 +36,22 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'youth' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'youths',
+        ],
+
+        'mentor' => [
+            'driver' => 'session',
+            'provider' => 'mentors',
+        ],
+
+        'donor' => [
+            'driver' => 'session',
+            'provider' => 'donors',
         ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -60,17 +71,22 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'youths' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Youth::class,
         ],
 
+        'mentors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Mentor::class,
+        ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'donors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Donor::class,
+        ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
