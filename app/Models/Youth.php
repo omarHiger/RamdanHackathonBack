@@ -33,4 +33,16 @@ class Youth extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_requests', 'youth_id', 'course_id')
+            ->withPivot('rating', 'is_accepted', 'goal');
+    }
+
+    public function categories()
+    {
+        return $this->morphToMany(Category::class, 'user', 'user_category')
+            ->withPivot('level');
+    }
 }

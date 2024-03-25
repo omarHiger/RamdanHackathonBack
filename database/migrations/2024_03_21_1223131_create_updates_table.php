@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('updates', function (Blueprint $table) {
             $table->id();
             $table->foreignId('funding_request_id')->constrained();
+            $table->string('title');
             $table->text('description');
             $table->string('images');
             $table->timestamps();

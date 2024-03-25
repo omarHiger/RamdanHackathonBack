@@ -14,10 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $news = \App\Models\Update::latest()->limit(4)->get();
+    //return  $news;
+    return view('welcome', compact('news'));
 });
 
 require "donor.php";
+require "youth.php";
 
 Route::get('/dashboard', function () {
     return view('dashboard');

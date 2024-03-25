@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('youth_id')->nullable();
             $table->bigInteger('admin_id')->nullable();
             $table->boolean('is_accepted')->default(false);
+            $table->string('title');
             $table->text('description');
             $table->decimal('amount');
             $table->string('file');

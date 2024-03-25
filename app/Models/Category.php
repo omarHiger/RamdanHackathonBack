@@ -12,4 +12,15 @@ class Category extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function youths()
+    {
+        return $this->morphedByMany(Youth::class, 'user', 'user_category')
+            ->withPivot('level');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }
