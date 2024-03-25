@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Montor;
+use App\Models\Mentor;
 use Illuminate\Http\Request;
 
 class MontorController extends Controller
@@ -34,7 +34,7 @@ class MontorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Montor $montor)
+    public function show(Mentor $montor)
     {
         //
     }
@@ -42,7 +42,7 @@ class MontorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Montor $montor)
+    public function edit(Mentor $montor)
     {
         //
     }
@@ -50,7 +50,7 @@ class MontorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Montor $montor)
+    public function update(Request $request, Mentor $montor)
     {
         //
     }
@@ -58,7 +58,7 @@ class MontorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Montor $montor)
+    public function destroy(Mentor $montor)
     {
         //
     }
