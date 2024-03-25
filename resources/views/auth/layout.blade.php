@@ -457,5 +457,6 @@
 <script src="{{asset('assets/js/vendor/select2.full.min.js')}}"></script>
 <script src="{{asset('assets/js/forms/controls.select2.js')}}"></script>
 <!-- Page Specific Scripts End -->
+@stack('script')
 </body>
 </html>

@@ -44,7 +44,7 @@ class MentorService
             'password' => Hash::make($data['password']),
             'location' => $data['location'],
             'position' => $data['position'],
-            'about' => $data['about'],
+            'about' => $data['about']??'about',
             'phone_number' => $data['phone_number'],
         ]);
     }

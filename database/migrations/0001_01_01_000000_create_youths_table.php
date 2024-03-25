@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('education_level',['تعليم ابتدائي','تعليم اعدادي','تعليم ثانوي','تعليم جامعي']);
             $table->string('location');
             $table->string('phone_number');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

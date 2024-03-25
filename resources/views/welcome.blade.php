@@ -74,7 +74,7 @@
                         </ul>
                     </div>
                     <div class="w-25">
-                        <a type="button" href="{{route('auth.register')}}" class="btn btn-primary mb-1 me-3">سجل الآن</a>
+                        <a type="button" href="{{route('auth.onBoarding')}}" class="btn btn-primary mb-1 me-3">سجل الآن</a>
                         <a type="button" href="{{route('auth.login')}} class="btn btn-alternate mb-1">تسجيل الدخول</a>
                     </div>
 
@@ -114,7 +114,7 @@
                                 المُحتاج ومساعدتهم على تحقيق طموحاتهم وآمالهم.
                                 إحداث تغيير إيجابي في المجتمع من خلال المساهمة في بناء مجتمعات أكثر ازدهارًا.
                             </p>
-                            <a href="{{route('auth.register')}}" class="btn btn-primary">تبرع الآن</a>
+                            <a href="{{route('auth.onBoarding')}}" class="btn btn-primary">تبرع الآن</a>
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                                 تقديم استشارات للشباب.
                                 التواصل مع الشباب المهتمين بمجالهم.
                             </p>
-                            <a href="{{route('auth.register')}}" class="btn btn-primary">إنضم إلينا الآن </a>
+                            <a href="{{route('auth.onBoarding')}}" class="btn btn-primary">إنضم إلينا الآن </a>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -145,7 +145,7 @@
                                 كورسات مجانية في مختلف المجالات.
                                 استشارات من مدربين مختصين.
                                 منصة تبرعات لدعم مشاريع الشباب.                            </p>
-                            <a href="{{route('auth.register')}}" class="btn btn-primary">سجل الآن!</a>
+                            <a href="{{route('auth.onBoarding')}}" class="btn btn-primary">سجل الآن!</a>
                         </div>
                     </div>
                 </div>
