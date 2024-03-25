@@ -18,7 +18,7 @@
                                     <a href="#">{{$item->category->name}}</a>
                                     <span class="badge bg-info">{{$item->level}}</span>
                                 </div>
-                                <h3 class="heading display-6 fw-bold mt-3">{{$item->title}}</h3>
+                                <h3 class="heading display-6 fw-bold mt-3"><a href="{{route('youth.courses.show', 1)}}">{{$item->title}}</a></h3>
                                 <div class="row g-0 align-items-center mb-1">
                                     <div class="col-auto">
                                         <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
@@ -131,7 +131,7 @@
                                     <a href="#">{{$item->category->name}}</a>
                                     <span class="badge bg-info">{{$item->level}}</span>
                                 </div>
-                                <h3 class="heading display-6 fw-bold mt-3">{{$item->title}}</h3>
+                                <h3 class="heading display-6 fw-bold mt-3"><a href="{{route('youth.courses.show', 1)}}">{{$item->title}}</a></h3>
                                 <div class="row g-0 align-items-center mb-1">
                                     <div class="col-auto">
                                         <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">
@@ -244,7 +244,7 @@
                                     <a href="#">{{$item->category->name}}</a>
                                     <span class="badge bg-info">{{$item->level}}</span>
                                 </div>
-                                <h3 class="heading display-6 fw-bold mt-3">{{$item->title}}</h3>
+                                <h3 class="heading display-6 fw-bold mt-3"><a href="{{route('youth.courses.show', 1)}}">{{$item->title}}</a></h3>
                                 <div class="row g-0 align-items-center mb-1">
                                     <div class="col-auto">
                                         <div class="sw-3 sh-4 d-flex justify-content-center align-items-center">

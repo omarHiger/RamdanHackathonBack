@@ -228,7 +228,7 @@
 
                 <ul class="nav  mt-3">
                     <li class="nav-item active"><a class="nav-link active" href="#">الرئيسية</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">تعليمي</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('youth.courses')}}">تعليمي</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">المدربين</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">طلبات الدعم الخاصة بي</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">للمتبرعين</a></li>

@@ -87,9 +87,9 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Course $course)
+    public function show($id)
     {
-        //
+        return view('youth.courses.show');
     }
 
     /**
