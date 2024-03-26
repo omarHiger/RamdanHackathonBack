@@ -75,7 +75,7 @@
                     </div>
                     <div class="w-25">
                         <a type="button" href="{{route('auth.onBoarding')}}" class="btn btn-primary mb-1 me-3">سجل الآن</a>
-                        <a type="button" href="{{route('auth.login')}} class="btn btn-alternate mb-1">تسجيل الدخول</a>
+                        <a type="button" href="{{route('auth.login')}}" class="btn btn-alternate mb-1">تسجيل الدخول</a>
                     </div>
 
                 </div>

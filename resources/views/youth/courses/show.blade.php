@@ -172,7 +172,7 @@
                                                     type="video/mp4">
                                         </video>
                                         <div class="plyr__poster"
-                                             style="background-image: url(assets/img/course/detail.png);"></div>
+                                             style='background-image: url({{asset("assets/img/course/img.png")}});'></div>
                                     </div>
                                     <div class="plyr__captions"></div>
                                     <button type="button" class="plyr__control plyr__control--overlaid" data-plyr="play"
@@ -327,7 +327,7 @@
                                                 <div class="d-flex align-items-center flex-column mb-5">
                                                     <div class="mb-5 d-flex align-items-center flex-column">
                                                         <div class="sw-13 position-relative mb-3">
-                                                            <img src="assets/img/profile/profile-2.webp" class="img-fluid rounded-xl" alt="thumb">
+                                                            <img src="{{asset('assets/img/profile/profile-2.webp')}}" class="img-fluid rounded-xl" alt="thumb">
                                                         </div>
                                                         <div class=" mb-3 display-3">عمر هيجر</div>
                                                         <div class="text-muted">مهندس برمجيات</div>
@@ -342,10 +342,10 @@
                                                 <div class="d-flex align-items-center flex-column mb-5">
                                                     <div class="mb-5 d-flex align-items-center flex-column">
                                                         <div class="sw-13 position-relative mb-3">
-                                                            <img src="assets/img/profile/profile-2.webp" class="img-fluid rounded-xl" alt="thumb">
+                                                            <img src="{{asset('assets/img/profile/profile-1.webp')}}" class="img-fluid rounded-xl" alt="thumb">
                                                         </div>
-                                                        <div class=" mb-3 display-3">محمود سلوم</div>
-                                                        <div class="text-muted">مهندس برمجيات</div>
+                                                        <div class=" mb-3 display-3">هدى شاكر </div>
+                                                        <div class="text-muted">مهندسة برمجيات</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -362,7 +362,7 @@
                         <div class="col-md-3">
                             <div class="card mb-3">
                                 <a href="#">
-                                    <img src="assets/img/course/img.png" class="card-img-top sh-30" alt="card image">
+                                    <img src="{{asset('assets/img/course/img.png')}}" class="card-img-top sh-30" alt="card image">
                                 </a>
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between text-large">
@@ -435,7 +435,7 @@
                         <div class="col-md-3">
                             <div class="card mb-3">
                                 <a href="#">
-                                    <img src="assets/img/course/img.png" class="card-img-top sh-30" alt="card image">
+                                    <img src="{{asset('assets/img/course/img.png')}}" class="card-img-top sh-30" alt="card image">
                                 </a>
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between text-large">
@@ -508,7 +508,7 @@
                         <div class="col-md-3">
                             <div class="card mb-3">
                                 <a href="#">
-                                    <img src="assets/img/course/img.png" class="card-img-top sh-30" alt="card image">
+                                    <img src="{{asset('assets/img/course/img.png')}}" class="card-img-top sh-30" alt="card image">
                                 </a>
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between text-large">
@@ -581,7 +581,7 @@
                         <div class="col-md-3">
                             <div class="card mb-3">
                                 <a href="#">
-                                    <img src="assets/img/course/img.png" class="card-img-top sh-30" alt="card image">
+                                    <img src="{{asset('assets/img/course/img.png')}}" class="card-img-top sh-30" alt="card image">
                                 </a>
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between text-large">
