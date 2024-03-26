@@ -76,7 +76,7 @@
 
             <!-- Right Side Start -->
             <div class="col-12 col-lg-auto h-100 w-50" style="direction: rtl">
-                <div class="sw-lg-80 min-h-100 bg-foreground  shadow-deep py-5 full-page-content-right-border">
+                <div class="min-h-100 bg-foreground  shadow-deep py-5 full-page-content-right-border">
                     <div class="w-100 px-5">
                         <div class="text-end">
                             <a href="{{route('landing')}}">
