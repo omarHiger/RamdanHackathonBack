@@ -3,6 +3,7 @@
 namespace App\Services\Youth;
 
 
+use App\Models\UserCategory;
 use App\Models\Youth;
 
 use Carbon\Carbon;
@@ -37,7 +38,7 @@ class YouthService
 
     public function register($data)
     {
-        return Youth::create([
+        $youth =  Youth::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
@@ -47,6 +48,16 @@ class YouthService
             'phone_number' => $data['phone_number'],
         ]);
 
+        foreach ($data['category_id'] as $index => $cat){
+            UserCategory::create([
+                'user_id' => $youth->id,
+                'user_type' => Youth::class,
+                'category_id'=>$cat,
+                'level' => $data['level'][$index]
+            ]);
+        }
+
+        return $youth;
 
     }
 

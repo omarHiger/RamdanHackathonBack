@@ -11,5 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::controller(MentorController::class)->prefix('mentors')->group(function () {
+    Route::get('/','index')->name('mentor.home');
     Route::get('/{id}', 'show')->name('mentor.show');
+    Route::post('/', 'register')->name('mentor.register');
 });

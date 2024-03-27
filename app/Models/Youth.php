@@ -35,6 +35,17 @@ class Youth extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    public function sent_messages()
+    {
+        return $this->morphMany(ChMessage::class, 'from');
+    }
+
+    public function received_messages()
+    {
+        return $this->morphMany(ChMessage::class, 'to');
+    }
+
+
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'course_requests', 'youth_id', 'course_id')

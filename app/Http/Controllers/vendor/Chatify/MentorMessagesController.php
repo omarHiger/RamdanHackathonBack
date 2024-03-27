@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\vendor\Chatify;
 
+use App\Models\ChMessage;
 use App\Models\ChMessage as Message;
 use App\Models\Mentor;
 use App\Models\Youth;
+use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -16,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Str;
 
-class MessagesController extends Controller
+class MentorMessagesController extends Controller
 {
     protected $perPage = 30;
 
@@ -28,12 +30,16 @@ class MessagesController extends Controller
      */
     public function pusherAuth(Request $request)
     {
-        return Chatify::pusherAuth(
-            $request->user(),
-            Auth::guard('youth'),
-            $request['channel_name'],
-            $request['socket_id']
-        );
+        try {
+            return Chatify::pusherAuth(
+                $request->user(),
+                Auth::guard('mentor'),
+                $request['channel_name'],
+                $request['socket_id']
+            );
+        } catch (\Throwable $e) {
+            return Response::json($e->getMessage());
+        }
     }
 
     /**
@@ -44,11 +50,11 @@ class MessagesController extends Controller
      */
     public function index($id = null)
     {
-        $messenger_color = Auth::guard('youth')->user()->messenger_color;
-        return view('Chatify::pages.app', [
+        $messenger_color = Auth::guard('mentor')->user()->messenger_color;
+        return view('mentorChatify.pages.app', [
             'id' => $id ?? 0,
             'messengerColor' => $messenger_color ? $messenger_color : Chatify::getFallbackColor(),
-            'dark_mode' => Auth::guard('youth')->user()->dark_mode < 1 ? 'light' : 'dark',
+            'dark_mode' => Auth::guard('mentor')->user()->dark_mode < 1 ? 'light' : 'dark',
         ]);
     }
 
@@ -62,7 +68,7 @@ class MessagesController extends Controller
     public function idFetchData(Request $request)
     {
         $favorite = Chatify::inFavorite($request['id']);
-        $fetch = Youth::where('id', $request['id'])->first();
+        $fetch = Mentor::where('id', $request['id'])->first();
         if ($fetch) {
             $userAvatar = Chatify::getUserWithAvatar($fetch)->avatar;
         }
@@ -132,30 +138,57 @@ class MessagesController extends Controller
         }
 
         if (!$error->status) {
-            $message = new Message;
-            $message->from_id = Auth::guard('youth')->user()->id;
-            $message->from_type = Youth::class;
-            $message->to_id = $request['id'];
-            $message->to_type = Mentor::class;
-            $message->body = htmlentities(trim($request['message']), ENT_QUOTES, 'UTF-8');
-            $message->attachment = ($attachment) ? json_encode((object)[
-                'new_name' => $attachment,
-                'old_name' => htmlentities(trim($attachment_title), ENT_QUOTES, 'UTF-8'),
-            ]) : null;
-            $message->save();
+//            info($request['id']);
+//            $message = new Message;
+//            $message->from_id = Auth::guard('mentor')->user()->id;
+//            $message->from_type = Mentor::class;
+//            $message->to_id = $request['id'];
+//            $message->to_type = Youth::class;
+//            $message->body = htmlentities(trim($request['message']), ENT_QUOTES, 'UTF-8');
+//            $message->attachment = ($attachment) ? json_encode((object)[
+//                'new_name' => $attachment,
+//                'old_name' => htmlentities(trim($attachment_title), ENT_QUOTES, 'UTF-8'),
+//            ]) : null;
+//            $message->save();
+//
+//
+//            $messageData = Chatify::parseMessage($message);
+//
+//            if (Auth::guard('mentor')->user()->id != $request['id']) {
+//                Chatify::push("private-chatify." . $request['id'], 'messaging', [
+//                    'from_id' => Auth::guard('mentor')->user()->id,
+//                    'from_type' => Mentor::class,
+//                    'to_id' => $request['id'],
+//                    'to_type' => Youth::class,
+//                    'message' => Chatify::messageCard($messageData, true)
+//                ]);
+//            }
 
-
+            $message = Chatify::newMessage([
+                'from_id' => Auth::guard('mentor')->user()->id,
+                'from_type' => Mentor::class,
+                'to_id' => $request['id'],
+                'to_type' => Youth::class,
+                'body' => htmlentities(trim($request['message']), ENT_QUOTES, 'UTF-8'),
+                'attachment' => ($attachment) ? json_encode((object)[
+                    'new_name' => $attachment,
+                    'old_name' => htmlentities(trim($attachment_title), ENT_QUOTES, 'UTF-8'),
+                ]) : null,
+            ]);
             $messageData = Chatify::parseMessage($message);
-            if (Auth::guard('youth')->user()->id != $request['id']) {
-                Chatify::push("private-chatify." . $request['id'], 'messaging', [
-                    'from_id' => Auth::guard('youth')->user()->id,
-                    'from_type' => Youth::class,
+            if (Auth::guard('mentor')->user()->id != $request['id']) {
+                Chatify::push("private-chatify.".$request['id'], 'messaging', [
+                    'from_id' => Auth::guard('mentor')->user()->id,
+                    'from_type' => Mentor::class,
                     'to_id' => $request['id'],
-                    'to_type' => Mentor::class,
+                    'to_type' => Youth::class,
                     'message' => Chatify::messageCard($messageData, true)
                 ]);
             }
+
         }
+
+
 
         // send the response
         return Response::json([
@@ -228,20 +261,18 @@ class MessagesController extends Controller
      */
     public function getContacts(Request $request)
     {
-        $youthId = Auth::guard('youth')->user()->id;
+        $mentorId = Auth::guard('mentor')->user()->id;
 
-
-        $users = Mentor::join('ch_messages', function ($join) use ($youthId) {
-            $join->on('mentors.id', '=', 'ch_messages.from_id')
-                ->where('ch_messages.from_type', Mentor::class)
-                ->where('ch_messages.to_id', $youthId)
-                ->where('ch_messages.to_type', Youth::class);
+        $users = Youth::join('ch_messages', function ($join) use ($mentorId) {
+            $join->on('youths.id', '=', 'ch_messages.from_id')
+                ->where('ch_messages.from_type', Youth::class)
+                ->where('ch_messages.to_id', $mentorId)
+                ->where('ch_messages.to_type', Mentor::class);
         })
-            ->select('mentors.*', DB::raw('MAX(ch_messages.created_at) as max_created_at'))
-            ->groupBy('mentors.id')
+            ->select('youths.*', DB::raw('MAX(ch_messages.created_at) as max_created_at'))
+            ->groupBy('youths.id')
             ->orderBy('max_created_at', 'desc')
             ->get();
-
 
         if ($users->isEmpty()) {
             $contacts = '<p class="message-hint center-el"><span>Your contact list is empty</span></p>';
@@ -268,7 +299,7 @@ class MessagesController extends Controller
     public function updateContactItem(Request $request)
     {
         // Get user data
-        $user = Mentor::where('id', $request['user_id'])->first();
+        $user = Youth::where('id', $request['user_id'])->first();
         if (!$user) {
             return Response::json([
                 'message' => 'User not found!',
@@ -310,11 +341,11 @@ class MessagesController extends Controller
     public function getFavorites(Request $request)
     {
         $favoritesList = null;
-        $favorites = Favorite::where('user_id', Auth::guard('youth')->user()->id);
+        $favorites = Favorite::where('user_id', Auth::guard('mentor')->user()->id);
         foreach ($favorites->get() as $favorite) {
             // get user data
             $user = Youth::where('id', $favorite->favorite_id)->first();
-            $favoritesList .= view('Chatify::layouts.favorite', [
+            $favoritesList .= view('mentorChatify.layouts.favorite', [
                 'user' => $user,
             ]);
         }
@@ -337,11 +368,11 @@ class MessagesController extends Controller
     {
         $getRecords = null;
         $input = trim(filter_var($request['input']));
-        $records = Mentor::where('id', '!=', Auth::guard('youth')->user()->id)
+        $records = Youth::where('id', '!=', Auth::guard('mentor')->user()->id)
             ->where('first_name', 'LIKE', "%{$input}%")
             ->paginate($request->per_page ?? $this->perPage);
         foreach ($records->items() as $record) {
-            $getRecords .= view('Chatify::layouts.listItem', [
+            $getRecords .= view('mentorChatify.layouts.listItem', [
                 'get' => 'search_item',
                 'user' => Chatify::getUserWithAvatar($record),
             ])->render();
@@ -370,7 +401,7 @@ class MessagesController extends Controller
 
         // shared with its template
         for ($i = 0; $i < count($shared); $i++) {
-            $sharedPhotos .= view('Chatify::layouts.listItem', [
+            $sharedPhotos .= view('mentorChatify.layouts.listItem', [
                 'get' => 'sharedPhoto',
                 'image' => Chatify::getAttachmentUrl($shared[$i]),
             ])->render();
@@ -423,14 +454,14 @@ class MessagesController extends Controller
         // dark mode
         if ($request['dark_mode']) {
             $request['dark_mode'] == "dark"
-                ? Youth::where('id', Auth::guard('youth')->user()->id)->update(['dark_mode' => 1])  // Make Dark
-                : Youth::where('id', Auth::guard('youth')->user()->id)->update(['dark_mode' => 0]); // Make Light
+                ? Mentor::where('id', Auth::guard('mentor')->user()->id)->update(['dark_mode' => 1])  // Make Dark
+                : Mentor::where('id', Auth::guard('mentor')->user()->id)->update(['dark_mode' => 0]); // Make Light
         }
 
         // If messenger color selected
         if ($request['messengerColor']) {
             $messenger_color = trim(filter_var($request['messengerColor']));
-            Youth::where('id', Auth::guard('youth')->user()->id)
+            Mentor::where('id', Auth::guard('mentor')->user()->id)
                 ->update(['messenger_color' => $messenger_color]);
         }
         // if there is a [file]
@@ -443,15 +474,15 @@ class MessagesController extends Controller
             if ($file->getSize() < Chatify::getMaxUploadSize()) {
                 if (in_array(strtolower($file->extension()), $allowed_images)) {
                     // delete the older one
-                    if (Auth::guard('youth')->user()->avatar != config('chatify.user_avatar.default')) {
-                        $avatar = Auth::guard('youth')->user()->avatar;
+                    if (Auth::guard('mentor')->user()->avatar != config('chatify.user_avatar.default')) {
+                        $avatar = Auth::guard('mentor')->user()->avatar;
                         if (Chatify::storage()->exists($avatar)) {
                             Chatify::storage()->delete($avatar);
                         }
                     }
                     // upload
                     $avatar = Str::uuid() . "." . $file->extension();
-                    $update = Youth::where('id', Auth::guard('youth')->user()->id)->update(['avatar' => $avatar]);
+                    $update = Mentor::where('id', Auth::guard('mentor')->user()->id)->update(['avatar' => $avatar]);
                     $file->storeAs(config('chatify.user_avatar.folder'), $avatar, 'public');
                     $success = $update ? 1 : 0;
                 } else {
@@ -481,7 +512,7 @@ class MessagesController extends Controller
     public function setActiveStatus(Request $request)
     {
         $activeStatus = $request['status'] > 0 ? 1 : 0;
-        $status = Youth::where('id', Auth::guard('youth')->user()->id)->update(['active_status' => $activeStatus]);
+        $status = Youth::where('id', Auth::guard('mentor')->user()->id)->update(['active_status' => $activeStatus]);
         return Response::json([
             'status' => $status,
         ], 200);

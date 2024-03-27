@@ -29,7 +29,6 @@ class YouthController extends Controller
     public function register(YouthCreateRequest $request)
     {
         $data = $request->validated();
-
         $youth = $this->youthService->register($data);
         if ($youth) {
             $email = $youth->email;

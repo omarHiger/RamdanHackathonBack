@@ -86,9 +86,9 @@ class YouthSeeder extends Seeder
 
         for ($i = 0; $i < 10; $i++) {
             $mentors[] = [
-                'first_name' => $first_names[$i],
+                'first_name' => 'المدرب ' . $first_names[$i],
                 'last_name' => $last_names[$i],
-                'email' => $user_name[$i] . '_mentor@gmail.com',
+                'email' => $user_name[$i]. '_mentor'.'@gmail.com',
                 'password' => Hash::make('password'),
                 'position' => $positions[array_rand($positions)],
                 'location' => $locations[$i],
@@ -100,7 +100,5 @@ class YouthSeeder extends Seeder
         }
 
         DB::table('mentors')->insert($mentors);
-
-
     }
 }

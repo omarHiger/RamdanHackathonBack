@@ -8,6 +8,15 @@
 
 @section('content')
     <div class="content p-5">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <!-- Last Step End Start -->
         <section class="scroll-section" id="lastStepEnd">
             <div class="card mb-5 wizard" id="wizardLastStepEnd">
@@ -147,21 +156,17 @@
                                 <h5 class="card-title">معلومات إضافية</h5>
                                 <div class="row mt-4">
                                     <div class="col-12">
-                                        <label class="form-label fw-bold"
-                                        >المنصب</label>
-                                        <div class="mb-3 filled">
-                                            <i
-                                                data-acorn-icon="lock-on"
-                                                class="icon"
-                                            ></i>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                placeholder="أدخل منصبك"
-                                                name="position"
-                                            />
+                                        <label class="form-label fw-bold">التحصيل العلمي</label>
+                                        <div class="form-floating w-100">
+                                            <select class="select-floating w-100" id="selectFloating" name="education_level">
+                                                <option label="&nbsp;"></option>
+                                                <option value="تعليم ابتدائي">تعليم ابتدائي</option>
+                                                <option value="تعليم اعدادي">تعليم اعدادي</option>
+                                                <option value="تعليم ثانوي">تعليم ثانوي</option>
+                                                <option value="تعليم جامعي">تعليم جامعي</option>
+                                            </select>
+                                            <label>اختر مايناسبك</label>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -308,9 +313,9 @@
     }
 
     var num = 1;
-
+    var max_fields = 5; // Maximum input fields
+    var select2Controls;
     $(document).ready(function() {
-        var max_fields = 5; // Maximum input fields
         var wrapper = document.getElementById('input'); // Input fields wrapper
         var add_button = $("#addSelect"); // Add button selector
         var x = 1; // Initial count is 1
@@ -319,7 +324,6 @@
             e.preventDefault();
             if(x < max_fields) { // Check maximum number of input fields
                 x++;
-
                 var input = document.createElement('div');
                 input.setAttribute('class','row mt-2');
                 input.setAttribute('id','row'+num);
@@ -328,7 +332,9 @@
                     '<div class="form-floating w-100" id="div1'+num+'">' +
                     '<select class="select-floating w-100" name="category_id[]" id="skill'+num+'">' +
                     '<option label=" "></option>' +
-                    '<option value="omar">omar</option>' +
+                    @foreach($skills as $skill)
+                    '<option value="{{$skill->id}}">{{$skill->name}}</option>' +
+                    @endforeach
                     '</select>' +
                     '<label>المجال</label>' +
                     '</div>' +
@@ -336,7 +342,7 @@
                     '<div class="col-4" id="col2'+num+'">' +
                     '<label class="form-label fw-bold">المستوى</label>' +
                     '<div class="form-floating w-100" id="div20'+num+'">' +
-                    '<select class="select-floating w-100" name="level" id="level'+num+'">' +
+                    '<select class="select-floating w-100" name="level[]" id="level'+num+'">' +
                     '<option label=" "></option>' +
                     '<option value="مبتدئ">مبتدئ</option>' +
                     '<option value="متوسط">متوسط</option>' +
@@ -352,6 +358,7 @@
                 console.log(input);
                 wrapper.appendChild(input); // Add input field
             }
+                select2Controls = new Select2Controls();
         });
 
 
@@ -360,6 +367,7 @@
             e.preventDefault();
             $(this).parent('div').parent('div').remove(); // Remove input field
             x--; // Decrement count
+            num--;
         });
     });
 </script>

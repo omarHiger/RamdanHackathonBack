@@ -10,7 +10,7 @@
         <!-- Last Step End Start -->
         <section class="scroll-section" id="lastStepEnd">
             <div class="card mb-5 wizard" id="wizardLastStepEnd">
-                <form action="{{route('auth.register')}}" method="post">
+                <form action="{{route('mentor.register')}}" method="post">
                     <div class="card-header border-0 pb-0">
                         <ul
                             class="nav nav-tabs justify-content-end flex-row-reverse p-0"
@@ -205,7 +205,7 @@
                                 id="lastStepEndThird"
                                 role="tabpanel"
                             >
-                                <h5 class="card-title">أختر المجالات التي تهمك</h5>
+                                <h5 class="card-title">اختر المجالات التي تهمك</h5>
                                 <p class="card-text text-alternate mb-4">
                                     أختر 5 اهتمامات على الأكثر
                                 </p>
@@ -219,6 +219,7 @@
                                                     type="checkbox"
                                                     class="form-check-input position-absolute e-2 t-2 z-index-1"
                                                     name="categories[]"
+                                                    value="{{$skill->id}}"
                                                 />
                                                 <span
                                                     class="card form-check-label w-100 custom-border"

@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Mentor extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory,HasApiTokens;
+    use HasFactory;
     protected $fillable = [
        'first_name',
        'last_name',
@@ -30,6 +30,17 @@ class Mentor extends Authenticatable implements MustVerifyEmail
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'mentor_course');
+    }
+
+
+    public function sent_messages()
+    {
+        return $this->morphMany(ChMessage::class, 'from');
+    }
+
+    public function received_messages()
+    {
+        return $this->morphMany(ChMessage::class, 'to');
     }
 
 }

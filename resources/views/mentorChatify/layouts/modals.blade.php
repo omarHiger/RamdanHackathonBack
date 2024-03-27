@@ -33,13 +33,13 @@
   <div class="app-modal" data-name="settings">
       <div class="app-modal-container">
           <div class="app-modal-card" data-name="settings" data-modal='0'>
-              <form id="update-settings" action="{{ route('avatar.update') }}" enctype="multipart/form-data" method="POST">
+              <form id="update-settings" action="{{ route('mentor.avatar.update') }}" enctype="multipart/form-data" method="POST">
                   @csrf
                   {{-- <div class="app-modal-header">Update your profile settings</div> --}}
                   <div class="app-modal-body">
                       {{-- Udate profile avatar --}}
                       <div class="avatar av-l upload-avatar-preview chatify-d-flex"
-                      style="background-image: url('{{ Chatify::getUserWithAvatar(Auth::guard('youth')->user())->avatar }}');"
+                      style="background-image: url('{{ Chatify::getUserWithAvatar(Auth::guard('mentor')->user())->avatar }}');"
                       ></div>
                       <p class="upload-avatar-details"></p>
                       <label class="app-btn a-btn-primary update" style="background-color:{{$messengerColor}}">
@@ -49,8 +49,8 @@
                       {{-- Dark/Light Mode  --}}
                       <p class="divider"></p>
                       <p class="app-modal-header">Dark Mode <span class="
-                        {{ Auth::user()->dark_mode > 0 ? 'fas' : 'far' }} fa-moon dark-mode-switch"
-                         data-mode="{{ Auth::user()->dark_mode > 0 ? 1 : 0 }}"></span></p>
+                        {{ Auth::guard('mentor')->user()->dark_mode > 0 ? 'fas' : 'far' }} fa-moon dark-mode-switch"
+                         data-mode="{{ Auth::guard('mentor')->user()->dark_mode > 0 ? 1 : 0 }}"></span></p>
                       {{-- change messenger color  --}}
                       <p class="divider"></p>
                       {{-- <p class="app-modal-header">Change {{ config('chatify.name') }} Color</p> --}}
