@@ -124,7 +124,7 @@
                                 <div>
                                     <p class="card-text">
                                         تم جمع
-                                        <sup style="font-size: 24px;font-weight:bold;">{{$donated_amount->first()->donated_amount}}$</sup>
+                                        <sup style="font-size: 24px;font-weight:bold;">{{$donated_amount->first()?$donated_amount->first()->donated_amount:0}}$</sup>
                                         من أصل
                                         {{$funding->amount}}$
                                     </p>

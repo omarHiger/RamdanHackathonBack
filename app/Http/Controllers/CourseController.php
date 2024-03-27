@@ -122,8 +122,8 @@ class CourseController extends Controller
 
     public function getRecommended()
     {
-        //        $user_id = Auth::guard('youths')->id();
-        $user_id = 1;
+        $user_id = Auth::guard('youth')->id();
+//        $user_id = 1;
         $youth = Youth::find($user_id);
         $my_courses = $youth->courses;
         $categories_rec = $youth->categories()->with('courses')->get(); // get the categories of the youth with their courses
