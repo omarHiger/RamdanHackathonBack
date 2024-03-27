@@ -2,14 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\MentorCreateRequest;
 use App\Models\Mentor;
+use App\Services\Mentor\MentorService;
 use Illuminate\Http\Request;
 
 class MentorController extends Controller
 {
+
+
+    protected MentorService $mentorService;
+
     /**
-     * Display a listing of the resource.
+     * @param MentorService $mentorService
      */
+    public function __construct(MentorService $mentorService)
+    {
+        $this->mentorService = $mentorService;
+    }
+
     public function index()
     {
         //
@@ -26,9 +37,15 @@ class MentorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function register(MentorCreateRequest $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
-        //
+        $data = $request->validated();
+        $mentor = $this->mentorService->register($data);
+        if ($mentor) {
+            $email = $mentor->email;
+            return view('auth.verify', compact('email'));
+        }
+        return redirect()->back()->with('Error', 'Something went wrong');
     }
 
     /**
@@ -37,7 +54,7 @@ class MentorController extends Controller
     public function show(string $id)
     {
         $mentor = Mentor::find($id);
-        return view('mentor.details',compact('mentor'));
+        return view('mentor.details', compact('mentor'));
     }
 
     /**

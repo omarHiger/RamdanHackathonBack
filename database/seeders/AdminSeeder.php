@@ -32,7 +32,7 @@ class AdminSeeder extends Seeder
             $donors[] = [
                 'first_name' => $first_names[$i],
                 'last_name' => $last_names[$i],
-                'email' => $user_name[$i] . '@gmail.com',
+                'email' => $user_name[$i] . '_donor' . '@gmail.com',
                 'password' => Hash::make('password'),
             ];
         }

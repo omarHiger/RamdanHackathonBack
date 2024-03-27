@@ -15,8 +15,8 @@ class CreateChatifyMessagesTable extends Migration
     {
         Schema::create('ch_messages', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->bigInteger('from_id');
-            $table->bigInteger('to_id');
+            $table->morphs('from'); // creates from_id and from_type
+            $table->morphs('to');   // creates to_id and to_type
             $table->string('body',5000)->nullable();
             $table->string('attachment')->nullable();
             $table->boolean('seen')->default(false);

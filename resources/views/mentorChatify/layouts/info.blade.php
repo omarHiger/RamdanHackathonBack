@@ -1,6 +1,6 @@
 {{-- user info and avatar --}}
 @php(
-    $user = \App\Models\Mentor::find($id)
+    $user = \App\Models\Youth::find($id)
 )
 
 <div class="avatar av-l chatify-d-flex"></div>

@@ -1,6 +1,6 @@
 {{-- -------------------- Saved Messages -------------------- --}}
 @if($get == 'saved')
-    <table class="messenger-list-item" data-contact="{{Auth::guard('youth')->user()->id ??Auth::guard('mentor')->user()->id }}">
+    <table class="messenger-list-item" data-contact="{{ Auth::guard('mentor')->user()->id }}">
         <tr data-action="0">
             {{-- Avatar side --}}
             <td>
@@ -10,7 +10,7 @@
             </td>
             {{-- center side --}}
             <td>
-                <p data-id="{{Auth::guard('youth')->user()->id??Auth::guard('mentor')->user()->id}}" data-type="user">Saved Messages <span>You</span></p>
+                <p data-id="{{ Auth::guard('mentor')->user()->id }}" data-type="user">Saved Messages <span>You</span></p>
                 <span>Save messages secretly</span>
             </td>
         </tr>
@@ -42,8 +42,7 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
         <span>
             {{-- Last Message user indicator --}}
             {!!
-                $user_id = Auth::guard('youth')->user()->id??Auth::guard('mentor')->user()->id;
-                $lastMessage->from_id ==  $user_id
+                $lastMessage->from_id == Auth::guard('mentor')->user()->id
                 ? '<span class="lastMessageIndicator">You :</span>'
                 : ''
             !!}

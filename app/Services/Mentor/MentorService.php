@@ -5,6 +5,7 @@ namespace App\Services\Mentor;
 
 use App\Models\Mentor;
 
+use App\Models\UserCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,9 +36,9 @@ class MentorService
     }
 
 
-    public function create($data)
+    public function register($data)
     {
-        return Mentor::create([
+        $mentor =  Mentor::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
@@ -47,6 +48,17 @@ class MentorService
             'about' => $data['about']??'about',
             'phone_number' => $data['phone_number'],
         ]);
+
+        foreach ($data['categories'] as $cat){
+            UserCategory::create([
+                'user_id' => $mentor->id,
+                'user_type' => Mentor::class,
+                'category_id'=>$cat,
+            ]);
+        }
+
+        return $mentor;
+
     }
 
     public function update($user, $data, $path)
