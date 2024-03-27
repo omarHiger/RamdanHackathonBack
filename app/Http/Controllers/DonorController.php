@@ -8,6 +8,7 @@ use App\Models\Donor;
 use App\Models\FundingRequest;
 use App\Services\Donor\DonorService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DonorController extends Controller
 {
@@ -25,6 +26,22 @@ class DonorController extends Controller
 
     public function index()
     {
+//        $donorId = Auth::guard('donor')->id(); // replace with your specific donor id
+//
+//// Get the donor
+//        $donor = Donor::find($donorId);
+//
+//// Get the funding requests that the donor has donated to
+//        $fundingRequests = $donor->donations()->with('fundingRequest')->get()->pluck('fundingRequest');
+////return $fundingRequests;
+//// Get the updates related to these funding requests
+//        $updates = collect();
+//        foreach ($fundingRequests as $request) {
+//            return $request->updates;
+//            $updates = $updates->concat($request->updates);
+//        }
+//
+//        return $updates;
         return view('donor.index');
     }
 

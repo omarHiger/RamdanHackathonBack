@@ -15,6 +15,7 @@ class UpdateController extends Controller
     public function index()
     {
         $user_id = Auth::id();
+        $updates = Update::whereHas('request');
         $donor = Donor::find($user_id);
 
     }

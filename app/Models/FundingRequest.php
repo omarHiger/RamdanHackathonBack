@@ -22,4 +22,5 @@ class FundingRequest extends Model
     {
         return $this->hasMany(Donation::class);
     }
+
 }

@@ -22,4 +22,9 @@ class Donor extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
     ];
+
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
 }
