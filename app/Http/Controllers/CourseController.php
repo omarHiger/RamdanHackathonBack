@@ -49,13 +49,21 @@ class CourseController extends Controller
         return view('youth.home', compact('my_courses', 'recommended', 'popular_courses'));
     }
 
-    public function index( Request $req)
+    public function index(Request $req)
     {
         $categories = Category::all();
-        $courses = Course::all();
-//        if($req==[]){
-//            $courses = Course::whereIn('level', $req->level)->whereIn('category', $req->categories)->where('title', 'like', '%'.$req->search.'%')->where('description   ', 'like', '%'.$req->search.'%');
-//        }
+        $courses = Course::query();
+        if($req->has('level') || $req->has('categories') || $req->has('search')){
+            if ($req->has('level'))
+                $courses = $courses->whereIn('level', $req->level);
+            if ($req->has('categories'))
+                $courses = $courses->whereIn('category.id', $req->categories);
+            if ($req->has('search'))
+                $courses = $courses->where('title', 'like', '%'.$req->search.'%')->orWhere('description', 'like', '%'.$req->search.'%');
+        }
+//        return $req->level;
+        $courses = $courses->get();
+
 //        $user_id = Auth::guard('youths')->id();
         $user_id = 1;
         $youth = Youth::find($user_id);

@@ -12,8 +12,8 @@
                     <div class="col-12 col-lg-4 col-xl-3 d-none d-lg-block">
                         <div class="card mb-5">
                             <div class="card-body mb-n5" id="filterColumn">
-                                <form method="GET" action="{{route('youth.courses')}}">
-
+                                <form method="POST" action="{{route('youth.courses')}}">
+                                    @csrf
                                     <div class="mb-5">
                                         <p class="text-small text-muted mb-2">الفئات</p>
                                         @foreach($categories as $item)
@@ -50,7 +50,7 @@
                                         <p class="text-small text-muted mb-2">بحث</p>
                                         <div class="row g-1">
                                             <div class="col">
-                                                <input type="text" class="form-control" placeholder="قم بالبحث هنا">
+                                                <input type="text" name="search" class="form-control" placeholder="قم بالبحث هنا">
                                             </div>
                                             <div class="col-auto">
                                                 <button class="btn btn-icon btn-icon-only btn-outline-primary"
@@ -96,10 +96,10 @@
                                         </a>
                                         <div class="card-body basis-1/4">
                                             <div class="d-flex justify-content-between text-large">
-                                                <a href="#">{{$item->category->name}}</a>
+                                                <a href="#">{{$item->name}}</a>
                                                 <span class="badge bg-info">{{$item->level}}</span>
                                             </div>
-                                            <a href="{{route('youth.courses.show', 1)}}">
+                                            <a href="{{route('youth.courses.show', $item->id)}}">
                                                 <h3 class="heading display-6 fw-bold">{{$item->title}}</h3></a>
                                             <div class="row g-0 align-items-center mb-1">
                                                 <div class="col-auto">
