@@ -31,12 +31,12 @@ class YouthCreateRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|email|unique:mentors',
+            'email' => 'required|email|unique:youths',
             'password' => 'required|confirmed|min:8',
             'education_level' => ['required',Rule::in(['تعليم ابتدائي','تعليم اعدادي','تعليم ثانوي','تعليم جامعي'])],
             'location' =>['required','string'],
-            'categories' =>['required','array','max:5'],
-            'levels' =>['required','array','max:5'],
+            'category_id' =>['required','array','max:5'],
+            'level' =>['required','array','max:5'],
             'phone_number' => ['required', 'numeric', 'min:10']
         ];
     }

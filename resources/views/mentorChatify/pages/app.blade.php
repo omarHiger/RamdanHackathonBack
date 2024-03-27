@@ -1,8 +1,8 @@
-@include('Chatify::layouts.headLinks')
+@include('mentorChatify.layouts.headLinks')
 <div class="messenger">
     {{-- ----------------------Users/Groups lists side---------------------- --}}
     <div class="messenger-listView {{ !!$id ? 'conversation-active' : '' }}">
-        @php($user = \App\Models\Mentor::find($id))
+        @php($user = \App\Models\Youth::find($id))
         {{-- Header and search bar --}}
         <div class="m-header">
             <nav>
@@ -33,7 +33,7 @@
                </div>
                {{-- Saved Messages --}}
                <p class="messenger-title"><span>Your Space</span></p>
-               {!! view('Chatify::layouts.listItem', ['get' => 'saved']) !!}
+               {!! view('mentorChatify.layouts.listItem', ['get' => 'saved']) !!}
                {{-- Contact --}}
                <p class="messenger-title"><span>All Messages</span></p>
                <div class="listOfContacts" style="width: 100%;height: calc(100% - 272px);position: relative;"></div>
@@ -98,7 +98,7 @@
 
         </div>
         {{-- Send Message Form --}}
-        @include('Chatify::layouts.sendForm')
+        @include('mentorChatify.layouts.sendForm')
     </div>
     {{-- ---------------------- Info side ---------------------- --}}
     <div class="messenger-infoView app-scroll">
@@ -107,9 +107,9 @@
             <p>User Details</p>
             <a href="#"><i class="fas fa-times"></i></a>
         </nav>
-        {!! view('Chatify::layouts.info',compact('id'))->render() !!}
+        {!! view('mentorChatify.layouts.info',compact('id'))->render() !!}
     </div>
 </div>
 
-@include('Chatify::layouts.modals')
-@include('Chatify::layouts.footerLinks')
+@include('mentorChatify.layouts.modals')
+@include('mentorChatify.layouts.footerLinks')
