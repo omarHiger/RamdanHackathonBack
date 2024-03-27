@@ -2,33 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\YouthCreateRequest;
 use App\Models\Youth;
+use App\Services\Youth\YouthService;
 use Illuminate\Http\Request;
 
 class YouthController extends Controller
 {
+
+    protected YouthService $youthService;
+
     /**
-     * Display a listing of the resource.
+     * @param YouthService $youthService
      */
+    public function __construct(YouthService $youthService)
+    {
+        $this->youthService = $youthService;
+    }
+
+
     public function index()
     {
-        //
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function register(YouthCreateRequest $request)
     {
-        //
-    }
+        $data = $request->validated();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        $youth = $this->youthService->register($data);
+        if ($youth) {
+            $email = $youth->email;
+            return view('auth.verify', compact('email'));
+        }
+        return redirect()->back()->with('Error', 'Something went wrong');
     }
 
     /**

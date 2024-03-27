@@ -35,7 +35,7 @@ class YouthService
     }
 
 
-    public function create($data)
+    public function register($data)
     {
         return Youth::create([
             'first_name' => $data['first_name'],

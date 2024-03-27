@@ -12,6 +12,13 @@
             <p class="fw-light">سجل الدخول في حسابك</p>
         </div>
     </div>
+    @if($message = Session::get('Error'))
+        <div class="alert alert-danger">
+
+            {{ $message }}
+        </div>
+
+    @endif
     <div class="row">
         <form method="POST" action="{{route('auth.store')}}">
             @csrf

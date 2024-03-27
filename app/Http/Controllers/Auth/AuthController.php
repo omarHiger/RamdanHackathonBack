@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\MentorCreateRequest;
 use App\Http\Requests\Auth\YouthCreateRequest;
@@ -24,28 +25,27 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
+
     public function store(Request $request)
     {
         // Validate the form data
         $this->validate($request, [
-            'email'   => 'required|email',
+            'email' => 'required|email',
             'password' => 'required|min:6'
         ]);
 
         // Attempt to log the user in
         if (Auth::guard('mentor')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             // If successful, then redirect to their intended location
-            return redirect()->intended(route('mentor.dashboard'));
-        }
-        else if (Auth::guard('youth')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+            return redirect()->intended(route('mentor.home'));
+        } else if (Auth::guard('youth')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             return redirect()->intended(route('youth-home'));
-        }
-        else if (Auth::guard('donor')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            return redirect()->intended(route('donor.dashboard'));
+        } else if (Auth::guard('donor')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+            return redirect()->intended(route('donor.home'));
         }
 
         // If unsuccessful, then redirect back to the login with the form data
-        return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors('البريد الالكتروني أو كلمة المرور خاطئة', 'invalid');
+        return redirect()->back()->withInput($request->only('email', 'remember'))->with('Error', 'البريد الالكتروني أو كلمة المرور خاطئة');
     }
 
 
@@ -67,11 +67,28 @@ class AuthController extends Controller
         return view('auth.onBoarding');
     }
 
-    public function signUp(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function signUp(Request $request)
     {
         $type = $request->input('borderedRadioChoice');
-        $skills = Category::all();
-        return view('auth.register',compact('type','skills'));
+
+        switch ($type) {
+            case 'mentor':
+                $skills = Category::all();
+                return view('auth.mentorRegister', compact('type', 'skills'));
+
+
+            case 'youth':
+                $skills = Category::all();
+                return view('auth.youthRegister', compact('type', 'skills'));
+
+            case 'donor':
+                return view('auth.donorRegister',compact('type'));
+
+            default:
+                return redirect()->to(route('landing'));
+        }
+
+
     }
 
     public function register(MentorCreateRequest $request, MentorService $service)
@@ -81,11 +98,10 @@ class AuthController extends Controller
 
             $mentor = $service->create($data);
 
-            if ($mentor){
+            if ($mentor) {
                 $email = $mentor->email;
-                return view('auth.verify',compact('email'));
-            }
-            else
+                return view('auth.verify', compact('email'));
+            } else
                 return $this->error(null, 'Failed add user');
         } catch (\throwable $th) {
             return $this->serverError($th->getMessage());

@@ -25,6 +25,7 @@ Route::get('/', function () {
 
 require "donor.php";
 require "youth.php";
+require "mentor.php";
 
 Route::get('/dashboard', function () {
     return view('dashboard');

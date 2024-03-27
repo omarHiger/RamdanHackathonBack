@@ -16033,3 +16033,9 @@ html[data-radius=standard] #settings .figure {
 html[data-show=true] .settings-button {
   opacity: 1;
 }
+.filled input{
+  text-indent: 30px;
+}
+.filled > svg {
+  right: 16px;
+}

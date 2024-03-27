@@ -35,7 +35,7 @@ class DonorService
     }
 
 
-    public function create($data)
+    public function register($data)
     {
         return Donor::create([
             'first_name' => $data['first_name'],

@@ -53,7 +53,7 @@
     <!-- Template Base Styles End -->
 
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}" />
-    <script src="assets/js/base/loader.js"></script>
+    <script src="{{asset('assets/js/base/loader.js')}}"></script>
 </head>
 
 <body class="pb-0">
