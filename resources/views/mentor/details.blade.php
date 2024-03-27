@@ -18,7 +18,7 @@
                                             >
                                                 <div class="d-flex align-items-center">
                                                     <img
-                                                        src="{{asset('assets/img/profile/profile-1.webp')}}"
+                                                        src="{{asset('assets/img/omar.jpg')}}"
                                                         alt="alternate text"
                                                         class="card-img rounded-xl card-img-horizontal sw-11"
                                                     />
@@ -33,10 +33,12 @@
                                                 </div>
 
                                                 <div>
-                                                    <button class="btn btn-primary">
+                                                    <form action="{{route('user',$mentor->id)}}" method="get">
+                                                    <button class="btn btn-primary" type="submit">
                                                         أرسل إستشارة
                                                         <i data-acorn-icon="message"></i>
                                                     </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                             <div class="about-trainer mt-5">
