@@ -27,4 +27,9 @@ class Mentor extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'mentor_course');
+    }
+
 }

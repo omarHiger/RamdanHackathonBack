@@ -13,4 +13,9 @@ class Donation extends Model
         'funding_request_id',
         'amount',
     ];
+
+    public function donor()
+    {
+        return $this->belongsTo(Donor::class);
+    }
 }

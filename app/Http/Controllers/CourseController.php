@@ -53,26 +53,20 @@ class CourseController extends Controller
     {
         $categories = Category::all();
         $courses = Course::query();
-        if($req->has('level') || $req->has('categories') || $req->has('search')){
-            if ($req->has('level'))
+        if ($req->has('level') || $req->has('categories') || $req->has('search')) {
+            if ($req->has('level')) {
                 $courses = $courses->whereIn('level', $req->level);
-            if ($req->has('categories'))
-                $courses = $courses->whereIn('category.id', $req->categories);
-            if ($req->has('search'))
-                $courses = $courses->where('title', 'like', '%'.$req->search.'%')->orWhere('description', 'like', '%'.$req->search.'%');
+            }
+            if ($req->has('categories')) {
+                $courses = $courses->whereHas('category', function ($query) use ($req) {
+                    $query->whereIn('id', $req->categories);
+                });
+            }
+            if ($req->has('search') && $req->search != '')
+                $courses = $courses->where('title', 'like', '%' . $req->search . '%')->orWhere('description', 'like', '%' . $req->search . '%');
         }
-//        return $req->level;
         $courses = $courses->get();
-
-//        $user_id = Auth::guard('youths')->id();
-        $user_id = 1;
-        $youth = Youth::find($user_id);
-        $my_courses = $youth->courses;
-        $categories_rec = $youth->categories()->with('courses')->get(); // get the categories of the youth with their courses
-
-        $recommended = $categories_rec->flatMap(function ($category) {
-            return $category->courses;
-        });
+        $recommended = $this->getRecommended();
         return view('youth.courses.index', compact('courses', 'categories', 'recommended'));
     }
 
@@ -97,7 +91,9 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        return view('youth.courses.show');
+        $course = Course::findOrFail($id);
+        $recommended = $this->getRecommended();
+        return view('youth.courses.show', compact('course', 'recommended'));
     }
 
     /**
@@ -122,5 +118,19 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+    }
+
+    public function getRecommended()
+    {
+        //        $user_id = Auth::guard('youths')->id();
+        $user_id = 1;
+        $youth = Youth::find($user_id);
+        $my_courses = $youth->courses;
+        $categories_rec = $youth->categories()->with('courses')->get(); // get the categories of the youth with their courses
+
+        $recommended = $categories_rec->flatMap(function ($category) {
+            return $category->courses;
+        });
+        return $recommended;
     }
 }

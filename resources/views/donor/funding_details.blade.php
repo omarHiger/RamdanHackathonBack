@@ -104,26 +104,9 @@
                                 </div>
                             </div>
                             <div class="card-body pt-0">
-                                <h4 class="mb-3 heading display-3 fw-bold">طلب تمويل ورشة عمل لتعليم أساسيات التصوير</h4>
+                                <h4 class="mb-3 heading display-3 fw-bold">{{$funding->title}}</h4>
                                 <p class="card-text" style="line-height:2.5;font-size:20px;">
-                                    نسعى إلى تمويل ورشة عمل لتعليم أساسيات التصوير الفوتوغرافي للمبتدئين.
-                                    تهدف هذه الورشة إلى:
-                                    تعريف المشاركين بمبادئ التصوير الفوتوغرافي.
-                                    تعليمهم كيفية استخدام الكاميرا بشكل صحيح.
-                                    إكسابهم المهارات الأساسية لالتقاط صور جميلة ومؤثرة.
-                                    ستتضمن الورشة:
-                                    محاضرات نظرية عن مبادئ التصوير الفوتوغرافي.
-                                    تدريبات عملية على استخدام الكاميرا.
-                                    جلسات تصوير خارجية.
-                                    مراجعة وتقييم الصور.
-                                    ستكون الورشة مفتوحة لجميع المبتدئين في مجال التصوير الفوتوغرافي، بغض النظر عن عمرهم أو خبرتهم.
-                                    نحتاج إلى تمويل لتغطية تكاليف:
-                                    مكان الورشة.
-                                    المعدات والأدوات.
-                                    مواد التدريب.
-                                    مكافآت المدربين.
-                                    نعتقد أن هذه الورشة ستكون فرصة رائعة للمشاركين لتعلم أساسيات التصوير الفوتوغرافي واكتساب مهارات جديدة.
-                                    نشكركم على دعمكم.
+                                    {{$funding->description}}
                                 </p>
 
                                 <button class="btn btn-primary btn-lg w-100 text-large">تبرع الآن</button>
@@ -135,21 +118,21 @@
                         <!-- Summary Start -->
                         <div class="card mb-5 p-5">
                             <div class="card-title">
-                                <h1>طلب تمويل ورشة عمل لتعليم أساسيات التصوير</h1>
+                                <h1>{{$funding->title}}</h1>
                             </div>
                             <div class="card-body mb-n5">
                                 <div>
                                     <p class="card-text">
                                         تم جمع
-                                        <sup style="font-size: 24px;font-weight:bold;">50,000$</sup>
+                                        <sup style="font-size: 24px;font-weight:bold;">{{$donated_amount->first()->donated_amount}}$</sup>
                                         من أصل
-                                        100,000$
+                                        {{$funding->amount}}$
                                     </p>
                                     <div class="progress progress-lg my-3">
                                         <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
                                     </div>
                                     <p class="card-text">
-                                        11K داعم
+                                        {{$donations->count()}} داعم
                                     </p>
                                 </div>
                                 <div class="btn-group w-100 mt-5 flex-row-reverse" role="group" aria-label="Basic radio toggle button group">
@@ -172,6 +155,7 @@
                                     <button class="btn-lg w-100 btn btn-primary">تبرع الآن!</button>
                                 </div>
                                 <div class="mt-5">
+                                    @foreach($donations as $item)
                                     <div class="row g-0 sh-6 mb-4">
                                         <div class="col-auto">
                                             <img src="{{asset('assets/img/illustration/dontaion-icon.png')}}" class="card-img rounded-xl sh-6 sw-6" alt="thumb">
@@ -179,63 +163,16 @@
                                         <div class="col">
                                             <div class="card-body d-flex flex-row pt-0 pb-0 ps-3 pe-0 h-100 align-items-center justify-content-between">
                                                 <div class="d-flex flex-column">
-                                                    <h3 class="heading text-alternate">عمر هيجر</h3>
-                                                    <h3 class="heading fw-bold">20$</h3>
+                                                    <h3 class="heading text-alternate">{{$item->donor->first_name." ".$item->donor->last_name}}</h3>
+                                                    <h3 class="heading fw-bold">{{$item->amount}}$</h3>
                                                 </div>
                                                 <div class="d-flex">
-                                                    <h5>منذ 4 أيام</h5>
+                                                    <h5>{{date_format($item->created_at, 'd/m/Y')}}</h5>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row g-0 sh-6 mb-4">
-                                        <div class="col-auto">
-                                            <img src="{{asset('assets/img/illustration/dontaion-icon.png')}}" class="card-img rounded-xl sh-6 sw-6" alt="thumb">
-                                        </div>
-                                        <div class="col">
-                                            <div class="card-body d-flex flex-row pt-0 pb-0 ps-3 pe-0 h-100 align-items-center justify-content-between">
-                                                <div class="d-flex flex-column">
-                                                    <h3 class="heading text-alternate">عمر هيجر</h3>
-                                                    <h3 class="heading fw-bold">20$</h3>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <h5>منذ 4 أيام</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row g-0 sh-6 mb-4">
-                                        <div class="col-auto">
-                                            <img src="{{asset('assets/img/illustration/dontaion-icon.png')}}" class="card-img rounded-xl sh-6 sw-6" alt="thumb">
-                                        </div>
-                                        <div class="col">
-                                            <div class="card-body d-flex flex-row pt-0 pb-0 ps-3 pe-0 h-100 align-items-center justify-content-between">
-                                                <div class="d-flex flex-column">
-                                                    <h3 class="heading text-alternate">عمر هيجر</h3>
-                                                    <h3 class="heading fw-bold">20$</h3>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <h5>منذ 4 أيام</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row g-0 sh-6 mb-4">
-                                        <div class="col-auto">
-                                            <img src="{{asset('assets/img/illustration/dontaion-icon.png')}}" class="card-img rounded-xl sh-6 sw-6" alt="thumb">
-                                        </div>
-                                        <div class="col">
-                                            <div class="card-body d-flex flex-row pt-0 pb-0 ps-3 pe-0 h-100 align-items-center justify-content-between">
-                                                <div class="d-flex flex-column">
-                                                    <h3 class="heading text-alternate">عمر هيجر</h3>
-                                                    <h3 class="heading fw-bold">20$</h3>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <h5>منذ 4 أيام</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                     <button class="btn btn-outline-alternate w-100">شاهد الجميع</button>
                                 </div>
                             </div>
@@ -247,48 +184,29 @@
             <section class="mt-4">
                 <h1 class="heading title display-1">اقتراحات لك</h1>
                 <div class="row g-4">
-                    <div class="col-4">
-                        <div class="card h-100">
-                            <img src="{{asset('assets/img/illustration/donation.png')}}" class="card-img-top" alt="image">
-                            <div class="card-body">
-                                <h5 class="card-title display-6 fw-bold">تمويل لابتوبات لطلاب جامعيين</h5>
-                                <div class="progress progress-lg my-3">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                    @foreach($recommedndations as $item)
+                        <div class="col-4">
+                            <div class="card h-100">
+                                <img src="{{asset('assets/img/illustration/donation.png')}}"
+                                     class="card-img-top"
+                                     alt="image">
+                                <div class="card-body">
+                                    <a href="{{route('donor.funding_details', $item->id)}}"><h5 class="card-title display-6 fw-bold">{{$item->title}}</h5></a>
+                                    <div class="progress progress-lg my-3">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="25"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 25%;"></div>
+                                    </div>
+                                    <p class="card-text">
+                                        تم
+                                        جمع {{$item->donations->first()?$item->donations->first()->donated_amount:0}}
+                                        $ من أصل
+                                        {{$item->amount}}$
+                                    </p>
                                 </div>
-                                <p class="card-text">
-                                    تم جمع 50,000$ من أصل 100,000$
-                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="card h-100">
-                            <img src="{{asset('assets/img/illustration/donation.png')}}" class="card-img-top" alt="image">
-                            <div class="card-body">
-                                <h5 class="card-title display-6 fw-bold">تمويل لابتوبات لطلاب جامعيين</h5>
-                                <div class="progress progress-lg my-3">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
-                                </div>
-                                <p class="card-text">
-                                    تم جمع 50,000$ من أصل 100,000$
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="card h-100">
-                            <img src="{{asset('assets/img/illustration/donation.png')}}" class="card-img-top" alt="image">
-                            <div class="card-body">
-                                <h5 class="card-title display-6 fw-bold">تمويل لابتوبات لطلاب جامعيين</h5>
-                                <div class="progress progress-lg my-3">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
-                                </div>
-                                <p class="card-text">
-                                    تم جمع 50,000$ من أصل 100,000$
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </section>
         </div>

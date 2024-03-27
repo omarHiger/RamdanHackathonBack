@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Donor;
 use App\Models\Update;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateController extends Controller
 {
@@ -12,7 +14,9 @@ class UpdateController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = Auth::id();
+        $donor = Donor::find($user_id);
+
     }
 
     /**
