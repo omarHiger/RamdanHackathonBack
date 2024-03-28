@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Donation;
 use App\Models\Funding_Request;
 use App\Models\FundingRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FundingRequestController extends Controller
 {
@@ -21,12 +23,21 @@ class FundingRequestController extends Controller
         return view('donor.funding_request.index', $request);
     }
 
+    public function fundingForYouth()
+    {
+        $requests = FundingRequest::where('youth_id', Auth::id())->with(['donations' => function($query) {
+            $query->selectRaw('funding_request_id, sum(amount) as donated_amount')
+                ->groupBy('funding_request_id');
+        }])->get();
+        return view('youth.funding.index', compact('requests'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('youth.funding.create');
     }
 
     /**
@@ -34,15 +45,36 @@ class FundingRequestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title'=>['required', 'string'],
+            'description'=>['required'],
+            'amount'=>['required', 'numeric'],
+            'files' => ['nullable']
+        ]);
+        FundingRequest::create([
+            'title'=>$request->title,
+            'description'=>$request->description,
+            'amount'=>$request->amount,
+            'youth_id'=>Auth::id(),
+            'is_accepted'=>false
+        ]);
+
+
+        return redirect()->back()->with('message', 'تم ارسال طلبك بنجاح وهو قيد المراجعة');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Funding_Request $funding_Request)
+    public function show($id)
     {
-        //
+        $funding = FundingRequest::findOrFail($id);
+        $donated_amount = Donation::selectRaw('sum(amount) as donated_amount')
+            ->where('funding_request_id', $id)
+            ->groupBy('funding_request_id')->get();
+        $donations = Donation::where('funding_request_id', $id)->latest()->get();
+
+        return view('youth.funding.show', compact('funding', 'donated_amount', 'donations'));
     }
 
     /**

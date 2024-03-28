@@ -104,7 +104,7 @@
                     <li class="nav-item active"><a class="nav-link active" href="#">الرئيسية</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('youth.courses')}}">تعليمي</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">المدربين</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">طلبات الدعم الخاصة بي</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('youth.funding.index')}}">طلبات التمويل الخاصة بي</a></li>
                 </ul>
             </div>
             <!-- Menu End -->
