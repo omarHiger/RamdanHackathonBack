@@ -28,4 +28,9 @@ class Donor extends Authenticatable
     ];
 
 
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
+
 }

@@ -18,4 +18,8 @@ class Donation extends Model
     {
         return $this->belongsTo(Donor::class);
     }
+    public function fundingRequest()
+    {
+        return $this->belongsTo(FundingRequest::class);
+    }
 }
