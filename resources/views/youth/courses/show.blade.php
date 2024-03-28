@@ -142,7 +142,7 @@
                                                 <div class="d-flex align-items-center flex-column mb-5">
                                                     <div class="mb-5 d-flex align-items-center flex-column">
                                                         <div class="sw-13 position-relative mb-3">
-                                                            <img src="{{asset('assets/img/huda.jpg')}}" class="img-fluid rounded-xl" alt="thumb">
+                                                            <img src="{{asset('assets/img/omar.jpg')}}" class="img-fluid rounded-xl" alt="thumb">
                                                         </div>
                                                         <div class=" mb-3 display-3"><a href="{{route('mentor.show', $mentor->id)}}">{{$mentor->first_name." ".$mentor->last_name}}</a></div>
                                                         <div class="text-muted">{{$mentor->position}}</div>

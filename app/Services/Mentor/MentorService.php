@@ -47,6 +47,7 @@ class MentorService
             'position' => $data['position'],
             'about' => $data['about']??'about',
             'phone_number' => $data['phone_number'],
+            'verification_code'=>substr(md5(rand()),0,7)
         ]);
 
         foreach ($data['categories'] as $cat){

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\DonorCreateRequest;
+use App\Mail\verification;
 use App\Models\Donation;
 use App\Models\Donor;
 use App\Models\FundingRequest;
 use App\Services\Donor\DonorService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class DonorController extends Controller
 {
@@ -36,6 +38,8 @@ class DonorController extends Controller
         $donor = $this->donorService->register($data);
         if ($donor) {
             $email = $donor->email;
+            $message='verify/'.$donor->email.'/'.$donor->verification_code.'/donor';
+            Mail::to($donor->email)->send(new \App\Mail\verification($message));
             return view('auth.verify', compact('email'));
         }
 

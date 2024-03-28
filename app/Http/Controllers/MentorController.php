@@ -6,6 +6,7 @@ use App\Http\Requests\Auth\MentorCreateRequest;
 use App\Models\Mentor;
 use App\Services\Mentor\MentorService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class MentorController extends Controller
 {
@@ -43,6 +44,8 @@ class MentorController extends Controller
         $mentor = $this->mentorService->register($data);
         if ($mentor) {
             $email = $mentor->email;
+            $message='verify/'.$mentor->email.'/'.$mentor->verification_code.'/mentor';
+            Mail::to($mentor->email)->send(new \App\Mail\verification($message));
             return view('auth.verify', compact('email'));
         }
         return redirect()->back()->with('Error', 'Something went wrong');

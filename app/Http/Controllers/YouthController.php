@@ -6,6 +6,7 @@ use App\Http\Requests\Auth\YouthCreateRequest;
 use App\Models\Youth;
 use App\Services\Youth\YouthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class YouthController extends Controller
 {
@@ -32,6 +33,8 @@ class YouthController extends Controller
         $youth = $this->youthService->register($data);
         if ($youth) {
             $email = $youth->email;
+            $message='verify/'.$youth->email.'/'.$youth->verification_code.'/youth';
+            Mail::to($youth->email)->send(new \App\Mail\verification($message));
             return view('auth.verify', compact('email'));
         }
         return redirect()->back()->with('Error', 'Something went wrong');

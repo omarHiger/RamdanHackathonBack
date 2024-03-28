@@ -42,6 +42,7 @@ class DonorService
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'verification_code'=>substr(md5(rand()),0,7)
         ]);
     }
 

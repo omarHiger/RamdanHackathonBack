@@ -46,6 +46,7 @@ class YouthService
             'education_level' => $data['education_level'],
             'location' => $data['location'],
             'phone_number' => $data['phone_number'],
+            'verification_code'=>substr(md5(rand()),0,7)
         ]);
 
         foreach ($data['category_id'] as $index => $cat){

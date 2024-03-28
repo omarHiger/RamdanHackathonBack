@@ -34,20 +34,40 @@ class AuthController extends Controller
             'password' => 'required|min:6'
         ]);
 
-        // Attempt to log the user in
-        if (Auth::guard('mentor')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            // If successful, then redirect to their intended location
-            return redirect()->intended(route('mentor.home'));
-        } else if (Auth::guard('youth')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            return redirect()->intended(route('youth-home'));
-        } else if (Auth::guard('donor')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            return redirect()->intended(route('donor.home'));
+        // Define the guards
+        $guards = ['mentor', 'youth', 'donor'];
+
+        foreach ($guards as $guard) {
+            // Attempt to log the user in
+            if (Auth::guard($guard)->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+                // If successful, then check if the user is verified
+                if (Auth::guard($guard)->user()->is_verified) {
+                    // If the user is verified, redirect to their intended location
+                    return redirect()->to(route($guard . '.home'));
+                } else {
+                    // If the user is not verified, log them out and redirect back to the login form with an error message
+                    Auth::guard($guard)->logout();
+                    return redirect()->to(route('landing'))->with('Error', 'الرجاء تأكيد حسابك ثم إعادة محاولة طلب الصفحة مرة اخرى');
+                }
+            }
         }
 
         // If unsuccessful, then redirect back to the login with the form data
         return redirect()->back()->withInput($request->only('email', 'remember'))->with('Error', 'البريد الالكتروني أو كلمة المرور خاطئة');
     }
 
+
+    public function checkVerify($user,string $role ,$request){
+        if (!$user->is_verified) {
+            // If the user is not verified, redirect them back to the login form
+            $user->guard()->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return true;
+        }
+        return  false;
+    }
 
     public function logout(Request $request)
     {

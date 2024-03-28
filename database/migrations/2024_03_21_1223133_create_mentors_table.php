@@ -22,7 +22,8 @@ return new class extends Migration {
             $table->string('location');
             $table->text('about');
             $table->string('phone_number');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('verification_code',100)->nullable();
+            $table->integer('is_verified')->nullable();
             $table->timestamps();
         });
 

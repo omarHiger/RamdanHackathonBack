@@ -6,12 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Youth extends Authenticatable implements MustVerifyEmail
+class Youth extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
-    protected  $fillable = [
+    protected $fillable = [
         'first_name',
         'last_name',
         'email',
@@ -19,7 +20,11 @@ class Youth extends Authenticatable implements MustVerifyEmail
         'education_level',
         'location',
         'phone_number',
+        'verification_code',
+        'is_verified'
     ];
+
+
 
     protected $hidden = [
         'password',

@@ -6,26 +6,32 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Mentor extends Authenticatable implements MustVerifyEmail
+class Mentor extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
+
     protected $fillable = [
-       'first_name',
-       'last_name',
-       'email',
-       'password',
-       'position',
-       'location',
-       'about',
-       'phone_number',
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'position',
+        'location',
+        'about',
+        'phone_number',
+        'verification_code',
+        'is_verified'
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+
 
     public function courses()
     {

@@ -87,6 +87,13 @@
     <main class="p-0 m-0">
         <div class="container">
             <!--            Hero        -->
+            @if($message = Session::get('Error'))
+                <div class="alert alert-danger">
+
+                    {{ $message }}
+                </div>
+
+            @endif
             <section>
                 <div class="row">
                     <div class="col-md-6 d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-md-start align-items-md-center justify-content-xl-center">
