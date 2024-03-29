@@ -66,8 +66,7 @@ class MentorController extends Controller
 
     public function viewCourses()
     {
-        $mentor_id = Auth::id();
-        $mentor = Mentor::find($mentor_id);
+        $mentor = Auth::guard('mentor')->user();
         $courses = $mentor->courses;
         return view('mentor.courses.index', compact('courses'));
     }
@@ -99,14 +98,13 @@ class MentorController extends Controller
             'files'=>['required', 'array'],
         ]);
         $course = Course::create($data);
-        $course->mentors()->attach(array_merge($request->mentors, [Auth::id()]));
+        $course->mentors()->attach(array_merge($request->mentors, [Auth::guard('mentor')->user()->id]));
         return redirect()->back()->with('message', 'تم إضافة الكورس بنجاح!');
     }
 
     public function displayJoinRequest(Request $request)
     {
-        $mentor_id = Auth::id();
-        $menotor = Mentor::find($mentor_id);
+        $menotor = Auth::guard('mentor')->user();
         $courses = $menotor->courses;
         $students = CourseRequest::whereIn('course_id', $courses->pluck('id'))->where('is_accepted', false);
         if ($request->has('courses')) {

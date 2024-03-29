@@ -78,7 +78,7 @@
             <div class="user-container d-flex">
                 <a href="#" class="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="profile" alt="profile" src="{{asset("assets/img/profile/profile-9.webp")}}">
-                    <div class="name mx-3">{{Auth::user()->first_name." ".Auth::user()->last_name}}</div>
+                    <div class="name mx-3">{{Auth::guard('mentor')->user()->first_name." ".Auth::guard('mentor')->user()->last_name}}</div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end user-menu wide">
                     <div class="row mb-1 ms-0 me-0">
@@ -104,7 +104,7 @@
                     <li class="nav-item active"><a class="nav-link active" href="{{route('mentor.home')}}">الرئيسية</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('mentor.requests')}}">طلبات الانضمام</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('mentor.course.create')}}">إضافة كورس جديدة</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">المحادثات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('mentors.chat')}}">المحادثات</a></li>
                 </ul>
             </div>
             <!-- Menu End -->

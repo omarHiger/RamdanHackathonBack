@@ -33,7 +33,7 @@ class MentorMessagesController extends Controller
         try {
             return Chatify::pusherAuth(
                 $request->user(),
-                Auth::guard('mentor'),
+                Auth::guard('mentor')->user(),
                 $request['channel_name'],
                 $request['socket_id']
             );
@@ -137,6 +137,7 @@ class MentorMessagesController extends Controller
             }
         }
 
+
         if (!$error->status) {
 //            info($request['id']);
 //            $message = new Message;
@@ -164,31 +165,29 @@ class MentorMessagesController extends Controller
 //                ]);
 //            }
 
-            $message = Chatify::newMessage([
-                'from_id' => Auth::guard('mentor')->user()->id,
-                'from_type' => Mentor::class,
-                'to_id' => $request['id'],
-                'to_type' => Youth::class,
-                'body' => htmlentities(trim($request['message']), ENT_QUOTES, 'UTF-8'),
-                'attachment' => ($attachment) ? json_encode((object)[
-                    'new_name' => $attachment,
-                    'old_name' => htmlentities(trim($attachment_title), ENT_QUOTES, 'UTF-8'),
-                ]) : null,
-            ]);
+            $message = new Message;
+            $message->from_id = Auth::guard('mentor')->user()->id;
+            $message->from_type = Mentor::class;
+            $message->to_id = $request['id'];
+            $message->to_type = Youth::class;
+            $message->body = htmlentities(trim($request['message']), ENT_QUOTES, 'UTF-8');
+            $message->attachment = ($attachment) ? json_encode((object)[
+                'new_name' => $attachment,
+                'old_name' => htmlentities(trim($attachment_title), ENT_QUOTES, 'UTF-8'),
+            ]) : null;
+            $message->save();
+
+
             $messageData = Chatify::parseMessage($message);
             if (Auth::guard('mentor')->user()->id != $request['id']) {
                 Chatify::push("private-chatify.".$request['id'], 'messaging', [
                     'from_id' => Auth::guard('mentor')->user()->id,
-                    'from_type' => Mentor::class,
                     'to_id' => $request['id'],
-                    'to_type' => Youth::class,
                     'message' => Chatify::messageCard($messageData, true)
                 ]);
             }
 
         }
-
-
 
         // send the response
         return Response::json([
@@ -261,6 +260,7 @@ class MentorMessagesController extends Controller
      */
     public function getContacts(Request $request)
     {
+        info('here get contact');
         $mentorId = Auth::guard('mentor')->user()->id;
 
         $users = Youth::join('ch_messages', function ($join) use ($mentorId) {
@@ -273,6 +273,7 @@ class MentorMessagesController extends Controller
             ->groupBy('youths.id')
             ->orderBy('max_created_at', 'desc')
             ->get();
+
 
         if ($users->isEmpty()) {
             $contacts = '<p class="message-hint center-el"><span>Your contact list is empty</span></p>';
@@ -298,6 +299,8 @@ class MentorMessagesController extends Controller
      */
     public function updateContactItem(Request $request)
     {
+
+        info($request->all());
         // Get user data
         $user = Youth::where('id', $request['user_id'])->first();
         if (!$user) {

@@ -107,6 +107,8 @@
                     <li class="nav-item"><a class="nav-link" href="{{route('youth.display.mentors')}}">المدربين</a></li>
 
                     <li class="nav-item"><a class="nav-link" href="{{route('youth.funding.index')}}">طلبات التمويل الخاصة بي</a></li>
+
+                    <li class="nav-item"><a class="nav-link" href="{{route('chatify')}}">المحادثات</a></li>
                 </ul>
             </div>
             <!-- Menu End -->

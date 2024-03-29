@@ -30,7 +30,7 @@ class MessagesController extends Controller
     {
         return Chatify::pusherAuth(
             $request->user(),
-            Auth::guard('youth'),
+            Auth::guard('youth')->user(),
             $request['channel_name'],
             $request['socket_id']
         );
@@ -149,9 +149,7 @@ class MessagesController extends Controller
             if (Auth::guard('youth')->user()->id != $request['id']) {
                 Chatify::push("private-chatify." . $request['id'], 'messaging', [
                     'from_id' => Auth::guard('youth')->user()->id,
-                    'from_type' => Youth::class,
                     'to_id' => $request['id'],
-                    'to_type' => Mentor::class,
                     'message' => Chatify::messageCard($messageData, true)
                 ]);
             }
@@ -174,6 +172,7 @@ class MessagesController extends Controller
      */
     public function fetch(Request $request)
     {
+        info('fetch');
         $query = Chatify::fetchMessagesQuery($request['id'])->latest();
         $messages = $query->paginate($request->per_page ?? $this->perPage);
         $totalMessages = $messages->total();
@@ -275,7 +274,6 @@ class MessagesController extends Controller
             ], 401);
         }
         $contactItem = Chatify::getContactItem($user);
-
         // send the response
         return Response::json([
             'contactItem' => $contactItem,
@@ -335,6 +333,7 @@ class MessagesController extends Controller
      */
     public function search(Request $request)
     {
+        info('search');
         $getRecords = null;
         $input = trim(filter_var($request['input']));
         $records = Mentor::where('id', '!=', Auth::guard('youth')->user()->id)

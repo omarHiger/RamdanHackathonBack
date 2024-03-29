@@ -46,6 +46,10 @@
                           Upload New
                           <input class="upload-avatar chatify-d-none" accept="image/*" name="avatar" type="file" />
                       </label>
+
+                      <p class="app-modal-header">{{Auth::guard('mentor')->user()->first_name . ' '.Auth::guard('mentor')->user()->last_name}}
+                      </p>
+
                       {{-- Dark/Light Mode  --}}
                       <p class="divider"></p>
                       <p class="app-modal-header">Dark Mode <span class="
