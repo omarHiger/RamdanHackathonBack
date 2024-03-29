@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\YouthCreateRequest;
+use App\Models\Category;
+use App\Models\Mentor;
 use App\Models\Youth;
 use App\Services\Youth\YouthService;
 use Illuminate\Http\Request;
@@ -40,35 +42,10 @@ class YouthController extends Controller
         return redirect()->back()->with('Error', 'Something went wrong');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Youth $youth)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Youth $youth)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Youth $youth)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Youth $youth)
-    {
-        //
+    public function displayMentors(){
+        $mentors = Mentor::all();
+        $cats = Category::all();
+        return view('youth.mentors.display_mentors',compact('mentors','cats'));
     }
 }

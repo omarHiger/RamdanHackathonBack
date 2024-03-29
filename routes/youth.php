@@ -15,4 +15,5 @@ Route::get('/course/{id}', [CourseController::class, 'show'])->name('youth.cours
 
 Route::controller(YouthController::class)->prefix('youths')->group(function () {
     Route::post('/', 'register')->name('youth.register');
+    Route::get('/display_mentors', 'displayMentors')->name('youth.display.mentors');
 });

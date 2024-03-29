@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             FundingRequestSeeder::class,
             CourseRequestSeeder::class,
+            UpdateSeeder::class,
         ]);
 
     }

@@ -25,97 +25,24 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12 mb-5">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="py-4 py-lg-0 px-lg-4 w-75">
-                                                <h1 class="display-3 fw-bold">تمويل كورس أساسيات تصوير فوتوغرافي</h1>
-                                                <p style="line-height:2" class="h5">شاركت في ورشة عمل "أساسيات التصوير"
-                                                    التي تم تنظيمها مؤخرًا مجموعة من المبتدئين في مجال التصوير
-                                                    الفوتوغرافي، حيث تعلموا خلالها مبادئ التصوير الفوتوغرافي، وكيفية
-                                                    استخدام الكاميرا بشكل صحيح، والمهارات الأساسية لالتقاط صور جميلة
-                                                    ومؤثرة.</p>
-                                                <div>
-                                                    <span class="badge bg-primary rounded" style="font-size:14px;">14/03/2024</span>
+
+                                    @foreach($updates as $item)
+                                        <div class="col-md-12 mb-5">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="py-4 py-lg-0 px-lg-4 w-75">
+                                                    <h1 class="display-3 fw-bold">{{$item->fundingRequest->title }}</h1>
+                                                    <p style="line-height:2" class="h5">{{$item->description}}</p>
+                                                    <div>
+                                                        <span class="badge bg-primary rounded" style="font-size:14px;">{{$item->created_at->format('d-m-Y')}}</span>
+                                                    </div>
                                                 </div>
+                                                <div><img class="rounded" width="500" height="200"
+                                                          style="object-fit: fill;"
+                                                          src="{{asset('assets/img/illustration/img-3.png')}}"/></div>
+
                                             </div>
-                                            <div><img class="rounded" width="500" height="200" style="object-fit: fill;"
-                                                      src="{{asset('assets/img/illustration/img-3.png')}}"/></div>
-
                                         </div>
-                                    </div>
-                                    <div class="col-md-12 mb-5">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="py-4 py-lg-0 px-lg-4 w-75">
-                                                <h1 class="display-3 fw-bold">تمويل كورس أساسيات تصوير فوتوغرافي</h1>
-                                                <p style="line-height:2" class="h5">شاركت في ورشة عمل "أساسيات التصوير"
-                                                    التي تم تنظيمها مؤخرًا مجموعة من المبتدئين في مجال التصوير
-                                                    الفوتوغرافي، حيث تعلموا خلالها مبادئ التصوير الفوتوغرافي، وكيفية
-                                                    استخدام الكاميرا بشكل صحيح، والمهارات الأساسية لالتقاط صور جميلة
-                                                    ومؤثرة.</p>
-                                                <div>
-                                                    <span class="badge bg-primary rounded" style="font-size:14px;">14/03/2024</span>
-                                                </div>
-                                            </div>
-                                            <div><img class="rounded" width="500" height="200" style="object-fit: fill;"
-                                                      src="{{asset('assets/img/illustration/img-3.png')}}"/></div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mb-5">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="py-4 py-lg-0 px-lg-4 w-75">
-                                                <h1 class="display-3 fw-bold">تمويل كورس أساسيات تصوير فوتوغرافي</h1>
-                                                <p style="line-height:2" class="h5">شاركت في ورشة عمل "أساسيات التصوير"
-                                                    التي تم تنظيمها مؤخرًا مجموعة من المبتدئين في مجال التصوير
-                                                    الفوتوغرافي، حيث تعلموا خلالها مبادئ التصوير الفوتوغرافي، وكيفية
-                                                    استخدام الكاميرا بشكل صحيح، والمهارات الأساسية لالتقاط صور جميلة
-                                                    ومؤثرة.</p>
-                                                <div>
-                                                    <span class="badge bg-primary rounded" style="font-size:14px;">14/03/2024</span>
-                                                </div>
-                                            </div>
-                                            <div><img class="rounded" width="500" height="200" style="object-fit: fill;"
-                                                      src="{{asset('assets/img/illustration/img-3.png')}}"/></div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mb-5">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="py-4 py-lg-0 px-lg-4 w-75">
-                                                <h1 class="display-3 fw-bold">تمويل كورس أساسيات تصوير فوتوغرافي</h1>
-                                                <p style="line-height:2" class="h5">شاركت في ورشة عمل "أساسيات التصوير"
-                                                    التي تم تنظيمها مؤخرًا مجموعة من المبتدئين في مجال التصوير
-                                                    الفوتوغرافي، حيث تعلموا خلالها مبادئ التصوير الفوتوغرافي، وكيفية
-                                                    استخدام الكاميرا بشكل صحيح، والمهارات الأساسية لالتقاط صور جميلة
-                                                    ومؤثرة.</p>
-                                                <div>
-                                                    <span class="badge bg-primary rounded" style="font-size:14px;">14/03/2024</span>
-                                                </div>
-                                            </div>
-                                            <div><img class="rounded" width="500" height="200" style="object-fit: fill;"
-                                                      src="{{asset('assets/img/illustration/img-3.png')}}"/></div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mb-5">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="py-4 py-lg-0 px-lg-4 w-75">
-                                                <h1 class="display-3 fw-bold">تمويل كورس أساسيات تصوير فوتوغرافي</h1>
-                                                <p style="line-height:2" class="h5">شاركت في ورشة عمل "أساسيات التصوير"
-                                                    التي تم تنظيمها مؤخرًا مجموعة من المبتدئين في مجال التصوير
-                                                    الفوتوغرافي، حيث تعلموا خلالها مبادئ التصوير الفوتوغرافي، وكيفية
-                                                    استخدام الكاميرا بشكل صحيح، والمهارات الأساسية لالتقاط صور جميلة
-                                                    ومؤثرة.</p>
-                                                <div>
-                                                    <span class="badge bg-primary rounded" style="font-size:14px;">14/03/2024</span>
-                                                </div>
-                                            </div>
-                                            <div><img class="rounded" width="500" height="200" style="object-fit: fill;"
-                                                      src="{{asset('assets/img/illustration/img-3.png')}}"/></div>
-
-                                        </div>
-                                    </div>
-
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

@@ -7,8 +7,10 @@ use App\Mail\verification;
 use App\Models\Donation;
 use App\Models\Donor;
 use App\Models\FundingRequest;
+use App\Models\Update;
 use App\Services\Donor\DonorService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,6 +30,16 @@ class DonorController extends Controller
 
     public function index()
     {
+        $donorId = Auth::guard('donor')->user()->id; // replace with the specific donor's id
+
+        $updates = Update::whereHas('fundingRequest.donations', function ($query) use ($donorId) {
+            $query->where('donor_id', $donorId);
+        })->with('fundingRequest')
+            ->orderBy('created_at', 'desc')
+            ->take(9)
+            ->get();
+
+
 //        $donorId = Auth::guard('donor')->id(); // replace with your specific donor id
 //
 //// Get the donor
@@ -44,7 +56,7 @@ class DonorController extends Controller
 //        }
 //
 //        return $updates;
-        return view('donor.index');
+        return view('donor.index',compact('updates'));
     }
 
 
@@ -101,9 +113,8 @@ class DonorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Donor $donor)
+    public function update()
     {
-        //
     }
 
     /**

@@ -17,6 +17,6 @@ class Update extends Model
 
     public function fundingRequest()
     {
-        return $this->belongsTo(FundingRequest::class);
+        return $this->belongsTo(FundingRequest::class,'funding_request_id');
     }
 }
