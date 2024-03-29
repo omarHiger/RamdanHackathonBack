@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(MentorController::class)->prefix('mentors')->group(function () {
     Route::get('/','viewCourses')->name('mentor.home');
+    Route::get('/requests','displayJoinRequest')->name('mentor.requests');
+    Route::post('/requests','displayJoinRequest')->name('mentor.requests');
+    Route::post('/acceptRequest/{id}','acceptRequest')->name('mentor.requests.accept');
+    Route::post('/rejectRequest/{id}','rejectRequest')->name('mentor.requests.reject');
     Route::get('/course/{id}','showCourse')->name('mentor.course.show');
     Route::get('/course/','createCourse')->name('mentor.course.create');
     Route::post('/course/','addCourse')->name('mentor.course.store');

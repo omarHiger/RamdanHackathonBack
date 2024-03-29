@@ -169,7 +169,9 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between text-large">
                                             <a href="#">{{$item->category->name}}</a>
-                                            <span class="badge bg-info">{{$item->level}}</span>
+                                            <div class="h-auto">
+                                                <span class="badge bg-info">{{$item->level}}</span>
+                                            </div>
                                         </div>
                                         <h3 class="heading display-6 fw-bold mt-3">{{$item->title}}</h3>
                                         <div class="row g-0 align-items-center mb-1">

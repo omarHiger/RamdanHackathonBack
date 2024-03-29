@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\MentorCreateRequest;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\CourseRequest;
 use App\Models\Mentor;
 use App\Services\Mentor\MentorService;
 use Illuminate\Http\Request;
@@ -47,7 +48,7 @@ class MentorController extends Controller
         $mentor = $this->mentorService->register($data);
         if ($mentor) {
             $email = $mentor->email;
-            $message='verify/'.$mentor->email.'/'.$mentor->verification_code.'/mentor';
+            $message = 'verify/' . $mentor->email . '/' . $mentor->verification_code . '/mentor';
             Mail::to($mentor->email)->send(new \App\Mail\verification($message));
             return view('auth.verify', compact('email'));
         }
@@ -81,8 +82,39 @@ class MentorController extends Controller
     {
         $mentors = Mentor::all();
         $categories = Category::all();
-        return view('mentor.courses.create', compact('mentors','categories'));
+        return view('mentor.courses.create', compact('mentors', 'categories'));
     }
+
+    public function displayJoinRequest(Request $request)
+    {
+        $mentor_id = Auth::id();
+        $menotor = Mentor::find($mentor_id);
+        $courses = $menotor->courses;
+        $students = CourseRequest::whereIn('course_id', $courses->pluck('id'))->where('is_accepted', false);
+        if ($request->has('courses')) {
+            $students = CourseRequest::query();
+            if ($request->has('courses')) {
+                $students = $students->whereIn('course_id', $request->courses);
+            }
+        }
+        $students = $students->get();
+        return view('mentor.browse_requests', compact('students', 'courses'));
+    }
+
+    public function acceptRequest($id)
+    {
+        $request = CourseRequest::findOrFail($id);
+        $request->is_accepted = true;
+        $request->save();
+        return redirect()->to(route('mentor.requests'));
+    }
+    public function rejectRequest($id)
+    {
+        $request = CourseRequest::findOrFail($id);
+        $request->delete();
+        return redirect()->to(route('mentor.requests'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
