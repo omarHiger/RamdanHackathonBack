@@ -15,4 +15,14 @@ class CourseRequest extends Model
         'course_id',
         'goal',
     ];
+
+    public function youth()
+    {
+        return $this->belongsTo(Youth::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

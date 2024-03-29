@@ -14,8 +14,18 @@
                             </div>
 
                         @endif
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         <h1 class="mb-5">إضافة كورس</h1>
-                        <form method="POST" action="{{route('youth.funding.store')}}" enctype="multipart/form-data">
+                        <form method="POST" action="{{route('mentor.course.store')}}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label class="form-label fw-bold">العنوان</label>
@@ -106,9 +116,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label fw-bold">هل تتطلب إرسال طلب انضمام؟</label>
+                                <label class="form-label fw-bold">أرفق الملفات المتعلقة بالمشروع</label>
                                 <div class="mb-3 filled">
-                                    <input type="file" name="files" class="form-control" multiple placeholder="يرجى رفع المفات المتعلقة بالطلب">
+                                    <input type="file" name="files[]" class="form-control" multiple placeholder="يرجى رفع المفات المتعلقة بالطلب">
                                     @error('files')
                                     <label class="form-label text-danger mt-1">{{$message}}</label>
                                     @enderror

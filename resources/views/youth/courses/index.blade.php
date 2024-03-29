@@ -97,7 +97,7 @@
                                         </a>
                                         <div class="card-body basis-1/4">
                                             <div class="d-flex justify-content-between text-large">
-                                                <a href="#">{{$item->name}}</a>
+                                                <a href="#">{{$item->category->name}}</a>
                                                 <span class="badge bg-info">{{$item->level}}</span>
                                             </div>
                                             <a href="{{route('youth.courses.show', $item->id)}}">

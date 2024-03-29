@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\YouthCreateRequest;
 use App\Models\Category;
 use App\Models\Mentor;
+use App\Models\Course;
+use App\Models\CourseRequest;
 use App\Models\Youth;
 use App\Services\Youth\YouthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class YouthController extends Controller
@@ -42,6 +45,35 @@ class YouthController extends Controller
         return redirect()->back()->with('Error', 'Something went wrong');
     }
 
+    public function enroll(Request $request, $id)
+    {
+        $data = $request->validate(['goal'=>['required']]);
+        $course = Course::find($id);
+        CourseRequest::create([
+            'youth_id'=>Auth::id(),
+            'course_id'=>$id,
+            'goal'=>$request->goal,
+            'is_accepted'=>!$course->should_request
+        ]);
+        $message = $course->should_request ? "تم الارسال بنجاح، طلبك قيد المراجعة": 'تم التسجيل بنجاح';
+        return redirect()->back()->with('message', $message);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Youth $youth)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Youth $youth)
+    {
+        //
+    }
 
     public function displayMentors(){
         $mentors = Mentor::all();
