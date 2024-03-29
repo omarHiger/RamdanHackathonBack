@@ -98,6 +98,22 @@ class DonorController extends Controller
         return view('donor.funding_details', compact('funding', 'donated_amount', 'donations', 'recommedndations'));
     }
 
+    public function donate($id, Request $request)
+    {
+        $amount = 0;
+        if ($request->amount)
+            $amount = $request->amount;
+        else
+            $amount = $request->amount_option;
+        $funding = FundingRequest::findOrFail($id);
+        Donation::create([
+            'donor_id'=>Auth::id(),
+            'funding_request_id'=>$funding->id,
+            'amount'=>$amount
+        ]);
+        return redirect()->back()->with('message', 'جزاك الله خيراً، تم التبرع بنجاح');
+    }
+
     /**
      * Update the specified resource in storage.
      */
