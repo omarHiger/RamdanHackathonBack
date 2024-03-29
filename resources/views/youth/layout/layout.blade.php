@@ -101,7 +101,7 @@
             <div class="menu-container flex-grow-1">
 
                 <ul class="nav  mt-3">
-                    <li class="nav-item active"><a class="nav-link active" href="#">الرئيسية</a></li>
+                    <li class="nav-item active"><a class="nav-link active" href="{{route('youth.home')}}">الرئيسية</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('youth.courses')}}">تعليمي</a></li>
 
                     <li class="nav-item"><a class="nav-link" href="{{route('youth.display.mentors')}}">المدربين</a></li>
