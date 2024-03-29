@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Acorn Admin Template | Default Dashboard</title>
+    <title>Arabia Youth</title>
     <meta name="description" content="Home screen that contains stats, charts, call to action buttons and various listing elements." />
     <!-- Favicon Tags Start -->
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{asset('assets/img/favicon/apple-touch-icon-57x57.png')}}" />
@@ -101,12 +101,9 @@
             <div class="menu-container flex-grow-1">
 
                 <ul class="nav  mt-3">
-                    <li class="nav-item active"><a class="nav-link active" href="#">الرئيسية</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('youth.courses')}}">تعليمي</a></li>
-
-                    <li class="nav-item"><a class="nav-link" href="{{route('youth.display.mentors')}}">المدربين</a></li>
-
-                    <li class="nav-item"><a class="nav-link" href="{{route('youth.funding.index')}}">طلبات التمويل الخاصة بي</a></li>
+                    <li class="nav-item active"><a class="nav-link active" href="{{route('mentor.home')}}">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('mentor.course.create')}}">إضافة كورس جديدة</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">المحادثات</a></li>
                 </ul>
             </div>
             <!-- Menu End -->

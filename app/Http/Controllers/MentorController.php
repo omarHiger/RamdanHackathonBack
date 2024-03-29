@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\MentorCreateRequest;
+use App\Models\Category;
+use App\Models\Course;
 use App\Models\Mentor;
 use App\Services\Mentor\MentorService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class MentorController extends Controller
@@ -60,6 +63,26 @@ class MentorController extends Controller
         return view('mentor.details', compact('mentor'));
     }
 
+    public function viewCourses()
+    {
+        $mentor_id = Auth::id();
+        $mentor = Mentor::find($mentor_id);
+        $courses = $mentor->courses;
+        return view('mentor.courses.index', compact('courses'));
+    }
+
+    public function showCourse($id)
+    {
+        $course = Course::findOrFail($id);
+        return view('mentor.courses.show', compact('course'));
+    }
+
+    public function createCourse()
+    {
+        $mentors = Mentor::all();
+        $categories = Category::all();
+        return view('mentor.courses.create', compact('mentors','categories'));
+    }
     /**
      * Show the form for editing the specified resource.
      */
