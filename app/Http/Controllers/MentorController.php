@@ -85,6 +85,24 @@ class MentorController extends Controller
         return view('mentor.courses.create', compact('mentors', 'categories'));
     }
 
+    public function addCourse(Request $request)
+    {
+        $data = $request->validate([
+            'title'=>['required', 'string'],
+            'description'=>['required'],
+            'mentors'=>['required', 'array'],
+            'mentors.*'=>['required'],
+            'category_id'=>['required'],
+            'location'=>['required'],
+            'level'=>['required'],
+            'is_accept'=>['required'],
+            'files'=>['required', 'array'],
+        ]);
+        $course = Course::create($data);
+        $course->mentors()->attach(array_merge($request->mentors, [Auth::id()]));
+        return redirect()->back()->with('message', 'تم إضافة الكورس بنجاح!');
+    }
+
     public function displayJoinRequest(Request $request)
     {
         $mentor_id = Auth::id();
