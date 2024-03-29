@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Acorn Admin Template | Default Dashboard</title>
+    <title>Arabia Youth</title>
     <meta name="description" content="Home screen that contains stats, charts, call to action buttons and various listing elements." />
     <!-- Favicon Tags Start -->
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{asset('assets/img/favicon/apple-touch-icon-57x57.png')}}" />

@@ -102,6 +102,7 @@
 
                 <ul class="nav  mt-3">
                     <li class="nav-item active"><a class="nav-link active" href="{{route('mentor.home')}}">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('mentor.requests')}}">طلبات الانضمام</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('mentor.course.create')}}">إضافة كورس جديدة</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">المحادثات</a></li>
                 </ul>
