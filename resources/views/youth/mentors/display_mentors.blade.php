@@ -87,7 +87,7 @@
                                             <div class="row g-0">
                                                 <div class="col-auto">
                                                     <div class="sw-10 ms-3">
-                                                        <img src="assets/img/profile/profile-5.webp"
+                                                        <img src="{{asset('assets/img/omar.jpg')}}"
                                                              class="img-fluid rounded-xl" alt="thumb">
                                                     </div>
                                                 </div>
