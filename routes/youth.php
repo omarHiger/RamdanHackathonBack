@@ -14,6 +14,7 @@ Route::get('/add-request/', [\App\Http\Controllers\FundingRequestController::cla
 Route::get('/my-fundings/', [\App\Http\Controllers\FundingRequestController::class, 'fundingForYouth'])->name('youth.funding.index');
 Route::get('/my-fundings/{id}', [\App\Http\Controllers\FundingRequestController::class, 'show'])->name('youth.funding.show');
 Route::post('/add-request/', [\App\Http\Controllers\FundingRequestController::class, 'store'])->name('youth.funding.store');
+Route::post('/enroll/{id}', [\App\Http\Controllers\YouthController::class, 'enroll'])->name('youth.course.enroll');
 });
 
 
