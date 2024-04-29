@@ -1,7 +1,7 @@
 # Arabia Youth 🌟🚀🌍
 The Arabia Youth platform is a powerful initiative designed to uplift and support young individuals across the Arab region made during our participation in The Ramadan Hackathon hosted by [The Arab American Society For Education and Development](https://www.aased.org/) . Whether you’re passionate about education, community projects, or career development, this platform provides a pathway to growth and impact.
 
-link of final project video
+link of final submission
 https://youtu.be/gLGxvw2AhjE
 
 ## Features 🌟
